@@ -1,0 +1,77 @@
+# The 8 rooms of the Thousand Sunny.
+# See docs/plan.md (section 4) and docs/rooms.md for the full background.
+#
+# How to change a value:
+#   1. Find the room by its `id`.
+#   2. Edit the field you want to change (for example `description`).
+#   3. Do not change `id` or `order` without a good reason: `id` is used by
+#      data/links/<room-id>.yaml (added in a later task) and by the folder's
+#      URL (for example optcg.ch/#figurehead); `order` is the position in the
+#      overview grid.
+#   4. Save and open a pull request. CI validates this file (added in a later task).
+#
+# Fields:
+#   id          short, unique, stable identifier
+#   name        room name, shown as the overlay title
+#   topic       label under the folder on the overview; shown with `character`
+#               as the overlay subtitle (for example "Galley · Sanji")
+#   character   character tied to the room, shown in the overlay subtitle
+#   description one sentence, max 120 characters, short room summary
+#   order       position in the overview grid, 1 = first
+
+rooms:
+  - id: figurehead
+    name: Figurehead
+    topic: Official
+    character: Luffy
+    description: "Official One Piece Card Game sources: the game website, Bandai TCG+ and official announcements."
+    order: 1
+
+  - id: navigation-room
+    name: Navigation Room
+    topic: Events
+    character: Nami
+    description: "Tournaments and events: egmanevents, tournament calendars and local game nights."
+    order: 2
+
+  - id: crows-nest
+    name: Crow's Nest
+    topic: Training
+    character: Zoro
+    description: "Train your game: simulators, meta lists and deck builders."
+    order: 3
+
+  - id: library
+    name: Library
+    topic: Rules & Cards
+    character: Robin
+    description: "Rules, card databases and other reference sites for the One Piece Card Game."
+    order: 4
+
+  - id: workshop
+    name: Workshop
+    topic: Tools
+    character: Franky / Usopp
+    description: "Community tools: prizing.optcg.ch, 3v3 and Two Moons."
+    order: 5
+
+  - id: galley
+    name: Galley
+    topic: Shops
+    character: Sanji
+    description: "Recommended shops for cards and supplies, plus a link to suggest your own shop."
+    order: 6
+
+  - id: lawn-deck
+    name: Lawn Deck
+    topic: Community
+    character: Crew
+    description: "Community spaces: social media profiles, Discord servers and player groups."
+    order: 7
+
+  - id: aquarium-bar
+    name: Aquarium Bar
+    topic: Media
+    character: Brook
+    description: "Videos and audio: YouTube channels, Twitch streams and podcasts."
+    order: 8
