@@ -35,4 +35,3 @@ videos is its main purpose, not building decks.
 
 - *Shops* and *Community* start without contributed links; ditshej adds the
   first links there later (see `docs/plan.md` section 5a).
-- The lottery/draw tool never appears on the page, in any room.
