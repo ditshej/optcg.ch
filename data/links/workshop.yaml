@@ -28,17 +28,3 @@ links:
     description: "Tournament prize payout calculator for One Piece Card Game events."
     language: en
     icon_source: fetched
-
-  - id: pack-simulator
-    title: Pack Simulator
-    url: "https://onepiecepacksimulator.com/open/"
-    description: "Opens virtual One Piece TCG booster packs online for fun, no purchase needed."
-    language: en
-    icon_source: fetched
-
-  - id: hypergeometric-calculator
-    title: Draw Probability Calc
-    url: "https://gumgum.gg/hypergeometric-calculator"
-    description: "Calculates draw odds for a deck using the hypergeometric distribution."
-    language: en
-    icon_source: fetched

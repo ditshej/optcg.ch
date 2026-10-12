@@ -29,16 +29,16 @@ links:
     language: en
     icon_source: fetched
 
-  - id: optcg-one-database
-    title: OPTCG.one Database
-    url: "https://www.optcg.one/database"
-    description: "Searchable card database with filters, prices and deck references."
+  - id: cardkaizoku-cards
+    title: Car D. Kaizoku Cards
+    url: "https://www.cardkaizoku.com/cards"
+    description: "Searchable card database for the One Piece Card Game with all sets."
     language: en
     icon_source: fetched
 
-  - id: opdecks-cards
-    title: OPDecks Card List
-    url: "https://opdecks.xyz/cards"
-    description: "Complete card database searchable by name, effect, set and rarity."
+  - id: cardkaizoku-spoilers
+    title: Car D. Kaizoku Spoilers
+    url: "https://www.cardkaizoku.com/spoilers"
+    description: "Newly revealed cards from upcoming One Piece Card Game sets."
     language: en
     icon_source: fetched

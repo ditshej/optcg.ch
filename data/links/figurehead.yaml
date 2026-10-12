@@ -35,10 +35,3 @@ links:
     description: "Official Bandai app for event sign-up, deck registration and tournament check-in."
     language: en
     icon_source: fetched
-
-  - id: official-global
-    title: Official Global Entrance
-    url: "https://www.onepiece-cardgame.com/global/"
-    description: "Official Bandai entry page linking to the right regional site and shop for your country."
-    language: en
-    icon_source: fetched
