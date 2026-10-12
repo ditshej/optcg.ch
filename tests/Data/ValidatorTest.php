@@ -156,6 +156,25 @@ final class ValidatorTest extends DataFixtureTestCase
         self::assertStringContainsString('icon_source', $error->message);
     }
 
+    public function testUnsupportedIconTypeIsRejected(): void
+    {
+        $this->writeRooms(Yaml::dump(self::GOOD_ROOMS, 4));
+        $this->writeLinks('room-a', $this->linksYaml([
+            $this->goodLink(['icon' => 'good-link.gif']),
+        ]));
+
+        $errors = $this->validate();
+
+        $typeErrors = array_values(array_filter(
+            $errors,
+            static fn ($e) => str_contains($e->message, 'unsupported file type'),
+        ));
+
+        self::assertCount(1, $typeErrors, $this->describe($errors));
+        self::assertSame('good-link', $typeErrors[0]->linkId);
+        self::assertStringContainsString('PNG, SVG or WebP', $typeErrors[0]->fix);
+    }
+
     public function testMissingIconFileIsRejected(): void
     {
         $this->writeRooms(Yaml::dump(self::GOOD_ROOMS, 4));
