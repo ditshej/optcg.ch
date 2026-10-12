@@ -27,6 +27,7 @@
     },
     "scripts": {
         "validate-data": "php bin/validate-data.php",
+        "check-links": "php bin/check-links.php",
         "test": "phpunit"
     }
 }
