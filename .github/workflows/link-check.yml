@@ -1,0 +1,52 @@
+name: Weekly link check
+
+on:
+  schedule:
+    # Monday 06:17 UTC. Off the hour to avoid GitHub's top-of-hour scheduling spikes.
+    - cron: '17 6 * * 1'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run link check
+        id: check
+        run: |
+          set +e
+          php bin/check-links.php --report=link-check-report.md
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+          set -e
+
+      - name: Open or update issue for dead links
+        if: steps.check.outputs.exit_code != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          TITLE="Weekly link check: dead links found"
+          EXISTING=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open \
+            --search "\"$TITLE\" in:title" --json number --jq '.[0].number // empty')
+
+          if [ -n "$EXISTING" ]; then
+            gh issue edit "$EXISTING" --repo "$GITHUB_REPOSITORY" --body-file link-check-report.md
+            gh issue comment "$EXISTING" --repo "$GITHUB_REPOSITORY" \
+              --body "Dead links found again on $(date -u +%Y-%m-%d). Report updated above."
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body-file link-check-report.md
+          fi
