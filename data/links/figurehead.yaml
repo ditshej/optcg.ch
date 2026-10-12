@@ -17,7 +17,7 @@
 #     url: "https://example.com"
 #     description: "One sentence describing what this link is for."
 #     language: en
-#     icon_source: manual
+#     icon_source: fetched
 #     tags: [example]
 #     featured: false
 
@@ -27,13 +27,18 @@ links:
     url: "https://en.onepiece-cardgame.com/"
     description: "Official ONE PIECE Card Game site from Bandai: rules, products, news and events."
     language: en
-    icon_source: manual
-    featured: true
+    icon_source: fetched
 
   - id: bandai-tcg-plus
     title: Bandai TCG+
     url: "https://lp.bandai-tcg-plus.com/en/"
     description: "Official Bandai app for event sign-up, deck registration and tournament check-in."
     language: en
-    icon_source: manual
-    featured: true
+    icon_source: fetched
+
+  - id: official-global
+    title: Official Global Entrance
+    url: "https://www.onepiece-cardgame.com/global/"
+    description: "Official Bandai entry page linking to the right regional site and shop for your country."
+    language: en
+    icon_source: fetched
