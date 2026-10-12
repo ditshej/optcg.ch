@@ -21,4 +21,27 @@
 #     tags: [example]
 #     featured: false
 
-links: []
+links:
+  - id: official-how-to-play
+    title: Official Rules
+    url: "https://en.onepiece-cardgame.com/beginners/how-to-play.php"
+    description: "Official step-by-step rules and how-to-play guide from Bandai."
+    language: en
+    icon_source: manual
+    featured: true
+
+  - id: optcg-one-database
+    title: OPTCG.one Database
+    url: "https://www.optcg.one/database"
+    description: "Searchable card database with filters, prices and deck references."
+    language: en
+    icon_source: manual
+    featured: true
+
+  - id: opdecks-cards
+    title: OPDecks Card List
+    url: "https://opdecks.xyz/cards"
+    description: "Complete card database searchable by name, effect, set and rarity."
+    language: en
+    icon_source: manual
+    featured: true

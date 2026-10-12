@@ -21,4 +21,19 @@
 #     tags: [example]
 #     featured: false
 
-links: []
+links:
+  - id: uncommon-cards
+    title: UnCommon Cards
+    url: "https://www.youtube.com/@Un_CommonCards"
+    description: "Interviews and discussions with top competitive One Piece TCG players."
+    language: en
+    icon_source: manual
+    featured: true
+
+  - id: deck-in-the-box
+    title: Deck In The Box
+    url: "https://www.youtube.com/@DeckBoxOPTCG"
+    description: "Gameplay, deck techs and tournament coverage for the One Piece Card Game."
+    language: en
+    icon_source: manual
+    featured: true

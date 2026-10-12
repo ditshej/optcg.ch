@@ -21,4 +21,27 @@
 #     tags: [example]
 #     featured: false
 
-links: []
+links:
+  - id: egman-deckbuilder
+    title: Egman Deckbuilder
+    url: "https://deckbuilder.egmanevents.com/optcg/deck"
+    description: "Free online deck builder with full card database and tournament-legality checks."
+    language: en
+    icon_source: manual
+    featured: true
+
+  - id: opmetagame
+    title: OP Metagame
+    url: "https://opmetagame.com/"
+    description: "Tournament-data meta tier list with win rates for the current format."
+    language: en
+    icon_source: manual
+    featured: true
+
+  - id: oplaytcg-simulator
+    title: OPlayTCG Simulator
+    url: "https://oplaytcg.com/play"
+    description: "Free browser simulator to test decks against real opponents, no install."
+    language: en
+    icon_source: manual
+    featured: true

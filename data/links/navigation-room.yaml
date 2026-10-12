@@ -21,4 +21,19 @@
 #     tags: [example]
 #     featured: false
 
-links: []
+links:
+  - id: egman-events
+    title: Egman Events
+    url: "https://deckbuilder.egmanevents.com/optcg/tournaments"
+    description: "Tournament results, decklists and livestream archive for One Piece events."
+    language: en
+    icon_source: manual
+    featured: true
+
+  - id: official-events
+    title: Official Events
+    url: "https://en.onepiece-cardgame.com/events/"
+    description: "Official calendar of store tournaments and events from Bandai."
+    language: en
+    icon_source: manual
+    featured: true
