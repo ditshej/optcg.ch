@@ -17,8 +17,56 @@
 #     url: "https://example.com"
 #     description: "One sentence describing what this link is for."
 #     language: en
-#     icon_source: manual
+#     icon_source: fetched
 #     tags: [example]
 #     featured: false
 
-links: []
+links:
+  - id: one-piece-official-yt
+    title: ONE PIECE Official
+    url: "https://www.youtube.com/@OnePieceOfficialENG"
+    description: "Official global ONE PIECE channel with news, trailers and card game updates."
+    language: en
+    icon_source: fetched
+
+  - id: car-d-kaizoku-yt
+    title: Car D. Kaizoku
+    url: "https://www.youtube.com/@cardkaizoku"
+    description: "One Piece Card Game content creator with gameplay and deck videos."
+    language: en
+    icon_source: fetched
+
+  - id: ikailakai-yt
+    title: iKailaKai
+    url: "https://www.youtube.com/@ikailakai"
+    description: "Gameplay and analysis of the One Piece Card Game, with insights from Japan."
+    language: en
+    icon_source: fetched
+
+  - id: atrocious-tcg-yt
+    title: Atrocious TCG
+    url: "https://www.youtube.com/@atrocioustcg"
+    description: "Gameplay and deck videos for the One Piece Card Game."
+    language: en
+    icon_source: fetched
+
+  - id: marineford-tcg-yt
+    title: MarinefordTCG
+    url: "https://www.youtube.com/@Marinefordtcg"
+    description: "One Piece Card Game videos with gameplay and deck discussions."
+    language: en
+    icon_source: fetched
+
+  - id: real-joshua-yt
+    title: real_joshua
+    url: "https://www.youtube.com/@real_joshuaTV"
+    description: "Homebrew decks, educational content, news and meta deck profiles."
+    language: en
+    icon_source: fetched
+
+  - id: skepasg-yt
+    title: SkepasG
+    url: "https://www.youtube.com/@Skepasg"
+    description: "Competitive One Piece Card Game content from a two-time regional winner."
+    language: en
+    icon_source: fetched

@@ -17,8 +17,49 @@
 #     url: "https://example.com"
 #     description: "One sentence describing what this link is for."
 #     language: en
-#     icon_source: manual
+#     icon_source: fetched
 #     tags: [example]
 #     featured: false
 
-links: []
+links:
+  - id: optcgsim
+    title: OPTCG Sim
+    url: "https://optcgsim.com/"
+    description: "Free fan-made practice client to play the One Piece Card Game online."
+    language: en
+    icon_source: fetched
+
+  - id: egman-deckbuilder
+    title: Egman Deckbuilder
+    url: "https://deckbuilder.egmanevents.com/optcg/deck"
+    description: "Free online deck builder with full card database and tournament-legality checks."
+    language: en
+    icon_source: fetched
+
+  - id: cardkaizoku-deckbuilder
+    title: Car D. Kaizoku Deckbuilder
+    url: "https://www.cardkaizoku.com/deckbuilder"
+    description: "Free online deck builder for the One Piece Card Game."
+    language: en
+    icon_source: fetched
+
+  - id: opmetagame
+    title: OP Metagame
+    url: "https://opmetagame.com/"
+    description: "Tournament-data meta tier list with win rates for the current format."
+    language: en
+    icon_source: fetched
+
+  - id: oplaytcg-simulator
+    title: OPlayTCG Simulator
+    url: "https://oplaytcg.com/play"
+    description: "Free browser simulator to test decks against real opponents, no install."
+    language: en
+    icon_source: fetched
+
+  - id: optcg-ai
+    title: OPTCG AI
+    url: "https://optcgai.com/en/"
+    description: "Free browser simulator to practise against an AI opponent or friends, no install."
+    language: en
+    icon_source: fetched

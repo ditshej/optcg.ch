@@ -5,6 +5,9 @@
     "license": "proprietary",
     "require": {
         "php": "^8.3",
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-gd": "*",
         "symfony/yaml": "^7.1",
         "justinrainbow/json-schema": "^6.2"
     },
@@ -28,6 +31,7 @@
     "scripts": {
         "validate-data": "php bin/validate-data.php",
         "check-links": "php bin/check-links.php",
+        "fetch-icons": "php bin/fetch-icons.php",
         "test": "phpunit"
     }
 }
