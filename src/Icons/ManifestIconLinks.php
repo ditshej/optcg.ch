@@ -28,12 +28,34 @@ final class ManifestIconLinks
 
         $urls = [];
         foreach ($icons as $icon) {
-            $src = is_array($icon) ? ($icon['src'] ?? null) : null;
+            if (!is_array($icon) || !self::hasUsablePurpose($icon)) {
+                continue;
+            }
+
+            $src = $icon['src'] ?? null;
             if (is_string($src) && $src !== '') {
                 $urls[] = UrlResolver::resolve($manifestUrl, $src);
             }
         }
 
         return $urls;
+    }
+
+    /**
+     * An icon is usable as a regular tile image only if its "purpose" is
+     * missing (spec default "any") or explicitly lists "any". "monochrome"
+     * and bare "maskable" icons are meant to be recoloured or clipped by the
+     * consumer, not drawn as-is, and must be skipped.
+     *
+     * @param array<mixed> $icon
+     */
+    private static function hasUsablePurpose(array $icon): bool
+    {
+        $purpose = $icon['purpose'] ?? null;
+        if (!is_string($purpose) || trim($purpose) === '') {
+            return true;
+        }
+
+        return in_array('any', preg_split('/\s+/', trim($purpose)), strict: true);
     }
 }

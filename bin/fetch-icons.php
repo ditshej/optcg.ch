@@ -64,7 +64,7 @@ foreach ($loader->discoverLinkFileRoomIds() as $roomId) {
             continue;
         }
 
-        echo "Fetching icon for {$id} ({$url}) ...\n";
+        fwrite(STDERR, "Fetching icon for {$id} ({$url}) ...\n");
         $selected = $selector->selectBestIcon($url);
 
         if ($selected === null) {
