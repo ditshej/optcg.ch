@@ -8,7 +8,7 @@ body:
       value: |
         Thanks for your interest! Shops are reviewed and decided by ditshej, the same way as any other link.
         There is no automatic form and no e-mail intake, and no right to be listed.
-        See [CONTRIBUTING.md](../../CONTRIBUTING.md) for the full rules.
+        See [CONTRIBUTING.md](https://github.com/ditshej/optcg.ch/blob/main/CONTRIBUTING.md) for the full rules.
   - type: input
     id: shop-url
     attributes:

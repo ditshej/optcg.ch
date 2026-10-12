@@ -18,4 +18,4 @@
 - [ ] For shops: sells One Piece Card Game products, own `https://` website, no affiliate links.
 - [ ] For UI changes: screenshots attached (phone and desktop).
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for the full rules.
+See [CONTRIBUTING.md](https://github.com/ditshej/optcg.ch/blob/main/CONTRIBUTING.md) for the full rules.

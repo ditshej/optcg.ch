@@ -30,7 +30,7 @@ ditshej decides what gets merged. There is no right to be listed.
      url: "https://example.com"
      description: "One sentence describing what this link is for."
      language: en
-     icon_source: manual
+     icon_source: fetched
      tags: [example]
      featured: false
    ```

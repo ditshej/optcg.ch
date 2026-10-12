@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for suggesting a link! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for the full rules.
+        Thanks for suggesting a link! See [CONTRIBUTING.md](https://github.com/ditshej/optcg.ch/blob/main/CONTRIBUTING.md) for the full rules.
         If you can use Git, a pull request is faster and more likely to be merged as-is.
   - type: input
     id: url
