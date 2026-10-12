@@ -42,5 +42,10 @@ use Optcg\View\Html;
 <?php endforeach; ?>
 </div>
 <?php require __DIR__ . '/footer.php'; ?>
+<dialog class="folder-overlay" id="folder-overlay">
+<button type="button" class="overlay-close" id="overlay-close" aria-label="Close this room" autofocus>&times;</button>
+<div class="overlay-mount" id="overlay-mount"></div>
+</dialog>
+<script src="js/overlay.js" defer></script>
 </body>
 </html>

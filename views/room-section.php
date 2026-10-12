@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 /**
  * The full link list of one room (plan.md section 9): reachable without
- * JavaScript as a plain section further down the page. The dialog overlay
- * on top of this markup is built in a later task (DIT-14).
+ * JavaScript as a plain section further down the page. With JavaScript,
+ * public/js/overlay.js moves .room-section-inner into the #folder-overlay
+ * dialog and back, so there is only ever one live copy of this markup.
  *
  * @var array<string, mixed> $r
  * @var \Optcg\View\IconResolver $icons

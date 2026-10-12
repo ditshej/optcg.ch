@@ -84,6 +84,16 @@ final class PageRendererTest extends TestCase
         self::assertStringContainsString('Add your shop', $html);
     }
 
+    public function testRendersTheFolderOverlayDialogAndEnhancementScript(): void
+    {
+        $html = $this->render($this->rooms(), []);
+
+        self::assertStringContainsString('<dialog class="folder-overlay" id="folder-overlay">', $html);
+        self::assertStringContainsString('id="overlay-close"', $html);
+        self::assertStringContainsString('id="overlay-mount"', $html);
+        self::assertStringContainsString('<script src="js/overlay.js" defer></script>', $html);
+    }
+
     public function testMoreThanFourLinksCollapseTheFourthFolderSlot(): void
     {
         $links = ['crows-nest' => array_map(
