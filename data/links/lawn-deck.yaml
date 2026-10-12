@@ -1,0 +1,24 @@
+# Links for the "Lawn Deck" room (Community, Crew).
+# See docs/plan.md (section 5) for the full data model and
+# data/schema/links.schema.json for the exact field rules.
+#
+# How to add a link:
+#   1. Copy the commented example below and remove the leading "# ".
+#   2. Fill in id, title, url, description, language and icon_source.
+#   3. id must be unique across all data/links/*.yaml files.
+#   4. url must start with https:// and must not contain tracking
+#      parameters (utm_*, fbclid, gclid, ...).
+#   5. icon and tags are optional; icon defaults to <id>.png if omitted.
+#   6. Save and open a pull request. CI validates this file.
+#
+# Example:
+#   - id: example-link
+#     title: Example Link
+#     url: "https://example.com"
+#     description: "One sentence describing what this link is for."
+#     language: en
+#     icon_source: manual
+#     tags: [example]
+#     featured: false
+
+links: []

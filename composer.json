@@ -1,0 +1,32 @@
+{
+    "name": "ditshej/optcg.ch",
+    "description": "optcg.ch landing page: data loading, validation and CLI tools",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.3",
+        "symfony/yaml": "^7.1",
+        "justinrainbow/json-schema": "^6.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Optcg\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Optcg\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "scripts": {
+        "validate-data": "php bin/validate-data.php",
+        "test": "phpunit"
+    }
+}
