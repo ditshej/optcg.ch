@@ -1,0 +1,39 @@
+name: Fetch icons
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  fetch-icons:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: curl, dom, gd
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run fetch-icons.php
+        run: php bin/fetch-icons.php | tee /tmp/icon-report.md
+
+      - name: Open pull request with new icons
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "feat: update icons (bin/fetch-icons.php)"
+          branch: bot/fetch-icons
+          delete-branch: true
+          title: "Update icons (bin/fetch-icons.php)"
+          body-path: /tmp/icon-report.md
+          add-paths: public/icons/
