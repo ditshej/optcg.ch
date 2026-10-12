@@ -1,0 +1,58 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "optcg.ch rooms",
+    "description": "Structure of data/rooms.yaml: the 8 rooms of the Thousand Sunny (see docs/plan.md section 4).",
+    "type": "object",
+    "required": ["rooms"],
+    "additionalProperties": false,
+    "properties": {
+        "rooms": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "$ref": "#/definitions/room" }
+        }
+    },
+    "definitions": {
+        "room": {
+            "type": "object",
+            "required": ["id", "name", "topic", "character", "description", "order"],
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "description": "Short, unique, stable identifier (lower-case, hyphen-separated). Used as the <room-id> in data/links/<room-id>.yaml."
+                },
+                "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 60,
+                    "description": "Room name, shown as the overlay title."
+                },
+                "topic": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 40,
+                    "description": "Label under the folder on the overview."
+                },
+                "character": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 60,
+                    "description": "Character tied to the room, shown in the overlay subtitle."
+                },
+                "description": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120,
+                    "description": "One sentence, max 120 characters, short room summary."
+                },
+                "order": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "description": "Position in the overview grid, 1 = first."
+                }
+            }
+        }
+    }
+}
