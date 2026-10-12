@@ -522,7 +522,7 @@ a {
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
     repeating-linear-gradient(32deg, rgba(74, 48, 21, 0.05) 0 1px, transparent 1px 72px),
     repeating-linear-gradient(-32deg, rgba(74, 48, 21, 0.05) 0 1px, transparent 1px 72px),
-    url("../assets/compass-rose.svg"),
+    url("../assets/compass-rose-pale.svg"),
     url("../assets/coastline.svg");
   background-repeat: repeat, repeat, repeat, repeat, no-repeat, no-repeat;
   background-size: 18px 18px, 18px 18px, auto, auto, 110px 110px, 100% 140px;

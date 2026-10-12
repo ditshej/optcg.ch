@@ -129,8 +129,14 @@
     moveContentHome();
     dialog.removeAttribute('aria-labelledby');
 
+    // Replace (not push) the current entry: opening a room already added or
+    // reused a history entry for it (a folder click pushes one; a deep link
+    // is the page's own entry). Replacing that entry here, instead of
+    // pushing a new one on top, avoids leaving the closed room's entry
+    // reachable by the back button — pushing it is what previously made
+    // Back reopen the folder right after closing it.
     if (location.hash.slice(1) === openRoomId) {
-      history.pushState(null, '', '#overview');
+      history.replaceState(null, '', '#overview');
     }
     openRoomId = null;
 
