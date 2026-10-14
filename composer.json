@@ -28,7 +28,10 @@
     },
     "config": {
         "sort-packages": true,
-        "optimize-autoloader": true
+        "optimize-autoloader": true,
+        "platform": {
+            "php": "8.3.0"
+        }
     },
     "scripts": {
         "validate-data": "php bin/validate-data.php",
