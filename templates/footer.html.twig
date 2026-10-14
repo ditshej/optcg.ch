@@ -1,19 +1,12 @@
-<?php
-
-declare(strict_types=1);
-
-/**
- * Footer, following the pattern of prizing.optcg.ch (views/about.php and
- * views/discord-profile.php): a Discord contact line and a by-line, plus
- * the fan disclaimer and privacy note from plan.md section 9. The Discord
- * profile URL is kept in exactly one place.
- */
-
-$discordProfileUrl = require __DIR__ . '/discord-profile.php';
-?>
+{#
+ # Footer, following the pattern of prizing.optcg.ch (views/about.php and
+ # views/discord-profile.php): a Discord contact line and a by-line, plus
+ # the fan disclaimer and privacy note from plan.md section 9. The Discord
+ # profile URL is kept in exactly one place (Optcg\View\DiscordProfile).
+ #}
 <footer class="site-footer">
 <p class="footer-contact">Questions or ideas? Say so on Discord —
-<a href="<?= htmlspecialchars($discordProfileUrl, ENT_QUOTES | ENT_HTML5, 'UTF-8') ?>" target="_blank" rel="noreferrer">ditshej</a></p>
+<a href="{{ discordProfileUrl }}" target="_blank" rel="noreferrer">ditshej</a></p>
 <p class="footer-by">created by
 <a href="https://ditshej.ch" target="_blank" rel="noreferrer">ditshej</a>
 with AI

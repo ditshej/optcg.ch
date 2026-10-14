@@ -1,15 +1,4 @@
-<?php
-
-declare(strict_types=1);
-
-/**
- * @var list<array<string, mixed>> $roomViews
- * @var \Optcg\View\IconResolver $icons
- */
-
-use Optcg\View\Html;
-
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -23,7 +12,7 @@ use Optcg\View\Html;
 <a class="skip-link" href="#overview">Skip to the overview</a>
 <header class="site-header">
 <a class="logo" href="#overview" aria-label="optcg.ch, back to the overview">
-<?php readfile(__DIR__ . '/../public/assets/compass-rose.svg'); ?>
+{{ logoSvg|raw }}
 <span class="logo-text">optcg.ch</span>
 </a>
 <p class="site-tagline">A chart of the One Piece Card Game seas</p>
@@ -31,16 +20,16 @@ use Optcg\View\Html;
 <main id="overview" class="overview">
 <h1 class="visually-hidden">Rooms of the Thousand Sunny</h1>
 <div class="folder-grid">
-<?php foreach ($roomViews as $r): ?>
-<?php require __DIR__ . '/folder.php'; ?>
-<?php endforeach; ?>
+{% for r in roomViews %}
+{% include 'folder.html.twig' with {'r': r} only %}
+{% endfor %}
 </div>
 </main>
 <div class="room-sections">
-<?php foreach ($roomViews as $r): ?>
-<?php require __DIR__ . '/room-section.php'; ?>
-<?php endforeach; ?>
+{% for r in roomViews %}
+{% include 'room-section.html.twig' with {'r': r} only %}
+{% endfor %}
 </div>
-<?php require __DIR__ . '/footer.php'; ?>
+{% include 'footer.html.twig' %}
 </body>
 </html>
