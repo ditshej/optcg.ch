@@ -1,9 +1,9 @@
-{% if tile is not null %}
-{%- if tile.kind == 'add' -%}
-<span class="tile-add" aria-hidden="true">+</span>
-{%- elseif tile.kind == 'icon' -%}
-<img src="icons/{{ tile.file }}" alt="" loading="lazy" width="64" height="64">
-{%- else -%}
-<span class="tile-fallback" style="background-color: {{ tile.color }}" aria-hidden="true">{{ tile.initial }}</span>
+{%- if tile is not null -%}
+    {%- if tile.kind == 'add' -%}
+        <span class="tile-add" aria-hidden="true">+</span>
+    {%- elseif tile.kind == 'icon' -%}
+        <img src="icons/{{ tile.file }}" alt="" loading="lazy" width="64" height="64">
+    {%- else -%}
+        <span class="tile-fallback" style="background-color: {{ tile.color }}" aria-hidden="true">{{ tile.initial }}</span>
+    {%- endif -%}
 {%- endif -%}
-{% endif -%}

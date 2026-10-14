@@ -13,7 +13,8 @@
         "twig/twig": "^3"
     },
     "require-dev": {
-        "phpunit/phpunit": "^11.3"
+        "phpunit/phpunit": "^11.3",
+        "vincentlanglet/twig-cs-fixer": "^4.1"
     },
     "autoload": {
         "psr-4": {
@@ -32,6 +33,8 @@
     "scripts": {
         "validate-data": "php bin/validate-data.php",
         "fetch-icons": "php bin/fetch-icons.php",
-        "test": "phpunit"
+        "test": "phpunit",
+        "lint:twig": "twig-cs-fixer lint templates --no-cache",
+        "fix:twig": "twig-cs-fixer fix templates --no-cache"
     }
 }
