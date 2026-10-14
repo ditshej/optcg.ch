@@ -35,6 +35,7 @@
     },
     "scripts": {
         "validate-data": "php bin/validate-data.php",
+        "check-links": "php bin/check-links.php",
         "fetch-icons": "php bin/fetch-icons.php",
         "test": "phpunit",
         "lint:twig": "twig-cs-fixer lint templates --no-cache",
