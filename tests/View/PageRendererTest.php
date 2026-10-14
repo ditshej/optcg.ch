@@ -76,6 +76,16 @@ final class PageRendererTest extends TestCase
         self::assertStringContainsString('>T</span>', $html);
     }
 
+    public function testSpecialCharactersInTitlesAreEscaped(): void
+    {
+        $links = ['library' => [$this->link('weird-title', 'Rules & "Errata" <v2>', 'https://example.com/rules')]];
+
+        $html = $this->render($this->rooms(), $links);
+
+        self::assertStringContainsString('Rules &amp; &quot;Errata&quot; &lt;v2&gt;', $html);
+        self::assertStringNotContainsString('<v2>', $html);
+    }
+
     public function testShopsRoomAlwaysOffersTheAddYourShopTile(): void
     {
         $html = $this->render($this->rooms(), []);

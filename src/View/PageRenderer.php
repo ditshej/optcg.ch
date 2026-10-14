@@ -4,17 +4,31 @@ declare(strict_types=1);
 
 namespace Optcg\View;
 
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+
 /**
  * Builds the view model for the overview page and renders it through the
- * plain PHP templates in views/ (no build step, following tcg-prizing).
+ * Twig templates in templates/ (no build step: Twig compiles templates to
+ * PHP at request time, cache disabled, following tcg-prizing's plain-PHP
+ * hosting on metanet).
  */
 final class PageRenderer
 {
-    private const VIEWS_DIR = __DIR__ . '/../../views';
+    private const TEMPLATES_DIR = __DIR__ . '/../../templates';
+    private const LOGO_SVG_FILE = __DIR__ . '/../../public/assets/compass-rose.svg';
+
+    private readonly Environment $twig;
 
     public function __construct(
         private readonly IconResolver $icons,
     ) {
+        $this->twig = new Environment(new FilesystemLoader(self::TEMPLATES_DIR), [
+            'autoescape' => 'html',
+            'strict_variables' => true,
+            'cache' => false,
+        ]);
+        $this->twig->addGlobal('discordProfileUrl', DiscordProfile::URL);
     }
 
     /**
@@ -28,9 +42,10 @@ final class PageRenderer
             $rooms,
         );
 
-        $icons = $this->icons;
-
-        return $this->include('layout.php', ['roomViews' => $roomViews, 'icons' => $icons]);
+        return $this->twig->render('layout.html.twig', [
+            'roomViews' => $roomViews,
+            'logoSvg' => (string) file_get_contents(self::LOGO_SVG_FILE),
+        ]);
     }
 
     /**
@@ -44,27 +59,21 @@ final class PageRenderer
             $links[] = AddShopLink::entry();
         }
 
+        $color = RoomColors::forRoom((string) $room['id']);
+        $preview = FolderPreview::layout($links);
+        $toTile = fn (?array $link): ?array => TileVisual::view($link, $color, $this->icons);
+
         return [
             'room' => $room,
-            'links' => $links,
-            'color' => RoomColors::forRoom((string) $room['id']),
-            'preview' => FolderPreview::layout($links),
+            'links' => array_map(
+                fn (array $link): array => $link + ['tile' => $toTile($link)],
+                $links,
+            ),
+            'color' => $color,
+            'preview' => [
+                'large' => array_map($toTile, $preview['large']),
+                'small' => $preview['small'] === null ? null : array_map($toTile, $preview['small']),
+            ],
         ];
-    }
-
-    /**
-     * @param array<string, mixed> $vars
-     */
-    private function include(string $template, array $vars): string
-    {
-        $render = function (string $__template, array $__vars): string {
-            extract($__vars, EXTR_SKIP);
-            ob_start();
-            require self::VIEWS_DIR . '/' . $__template;
-
-            return (string) ob_get_clean();
-        };
-
-        return $render($template, $vars);
     }
 }

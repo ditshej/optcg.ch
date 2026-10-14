@@ -17,8 +17,28 @@
 #     url: "https://example.com"
 #     description: "One sentence describing what this link is for."
 #     language: en
-#     icon_source: manual
+#     icon_source: fetched
 #     tags: [example]
 #     featured: false
 
-links: []
+links:
+  - id: official-how-to-play
+    title: Official Rules
+    url: "https://en.onepiece-cardgame.com/beginners/how-to-play.php"
+    description: "Official step-by-step rules and how-to-play guide from Bandai."
+    language: en
+    icon_source: fetched
+
+  - id: cardkaizoku-cards
+    title: Car D. Kaizoku Cards
+    url: "https://www.cardkaizoku.com/cards"
+    description: "Searchable card database for the One Piece Card Game with all sets."
+    language: en
+    icon_source: fetched
+
+  - id: cardkaizoku-spoilers
+    title: Car D. Kaizoku Spoilers
+    url: "https://www.cardkaizoku.com/spoilers"
+    description: "Newly revealed cards from upcoming One Piece Card Game sets."
+    language: en
+    icon_source: fetched
