@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Optcg\View;
 
 /**
- * The contact channel's address: ditshej's Discord profile. Lives here once
- * (same pattern as ditshej/tcg-prizing's discord-profile.php), so the footer
- * has a single source.
+ * The contact channel's address: the maintainer's Discord profile. Lives
+ * here once, so the footer has a single source.
  */
 final class DiscordProfile
 {

@@ -36,7 +36,7 @@ as an alternate view the user can switch to — not decided.
 ## Open questions
 
 - **Design:** how detailed should the SVG cutaway be? Static drawing or a
-  layered/animated SVG? Who draws it (ditshej, a commissioned artist, or an
+  layered/animated SVG? Who draws it (the maintainer, a commissioned artist, or an
   existing free asset redrawn)?
 - **Copyright:** the drawing must be an own interpretation of the ship's layout,
   not a traced or copied official blueprint. How different does the room

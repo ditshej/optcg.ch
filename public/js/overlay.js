@@ -1,6 +1,6 @@
-// Progressive enhancement for the folder overlay (plan.md sections 6 and 9, DIT-14).
+// Progressive enhancement for the folder overlay (plan.md sections 6 and 9).
 // Without this script every folder link still works as a plain anchor to the
-// matching <section> further down the page (built in DIT-13). With this script,
+// matching <section> further down the page. With this script,
 // the matching .room-section-inner is moved into the <dialog> instead, so the
 // room's content lives in exactly one place at a time.
 (() => {

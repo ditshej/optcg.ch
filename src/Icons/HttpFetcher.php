@@ -7,7 +7,7 @@ namespace Optcg\Icons;
 /**
  * Fetches a URL for the icon selection logic in IconSelector. Kept as an
  * interface so tests can run the selection logic against canned HTML and
- * image fixtures without any network access (see DIT-12 acceptance criteria).
+ * image fixtures without any network access.
  */
 interface HttpFetcher
 {

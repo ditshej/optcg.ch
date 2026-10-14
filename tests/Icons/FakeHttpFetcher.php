@@ -10,7 +10,7 @@ use Optcg\Icons\HttpFetcher;
 /**
  * Test double for HttpFetcher: serves canned responses from an in-memory
  * map instead of the network, so IconSelector tests stay fast and
- * deterministic (DIT-12 acceptance criteria: no network in tests).
+ * deterministic (no network in tests).
  */
 final class FakeHttpFetcher implements HttpFetcher
 {
