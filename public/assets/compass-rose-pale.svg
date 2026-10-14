@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-hidden="true" focusable="false">
+  <!-- Own drawing: same eight-point compass rose as compass-rose.svg, baked in a
+       fixed pale ink tone (no currentColor) so it stays faint as a CSS
+       background-image, where currentColor would otherwise resolve to black. -->
+  <circle cx="32" cy="32" r="30" fill="none" stroke="#4a3015" stroke-width="1.5" opacity="0.25" />
+  <circle cx="32" cy="32" r="24" fill="none" stroke="#4a3015" stroke-width="0.75" opacity="0.18" />
+  <g fill="#4a3015">
+    <polygon opacity="0.16" points="32,32 35.06,27.43 44.02,19.98 36.57,28.94" />
+    <polygon opacity="0.16" points="32,32 36.57,35.06 44.02,44.02 35.06,36.57" />
+    <polygon opacity="0.16" points="32,32 28.94,36.57 19.98,44.02 27.43,35.06" />
+    <polygon opacity="0.16" points="32,32 27.43,28.94 19.98,19.98 28.94,27.43" />
+    <polygon opacity="0.25" points="32,32 37.39,30.93 59.0,32.0 37.39,33.07" />
+    <polygon opacity="0.25" points="32,32 33.07,37.39 32.0,59.0 30.93,37.39" />
+    <polygon opacity="0.25" points="32,32 26.61,33.07 5.0,32.0 26.61,30.93" />
+    <polygon opacity="0.25" points="32,32 30.93,26.61 32.0,5.0 33.07,26.61" />
+  </g>
+  <circle cx="32" cy="32" r="2.5" fill="#4a3015" opacity="0.25" />
+</svg>

@@ -1,7 +1,9 @@
 {#
  # The full link list of one room (plan.md section 9): reachable without
- # JavaScript as a plain section further down the page. The dialog overlay
- # on top of this markup is built in a later task (DIT-14).
+ # JavaScript as a plain section further down the page. With JavaScript,
+ # public/js/overlay.js moves .room-section-inner into the #folder-overlay
+ # dialog and back (DIT-14), so there is only ever one live copy of this
+ # markup.
  #}
 {% set roomId = r.room.id %}
 {% set headingId = roomId ~ '-heading' %}

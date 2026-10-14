@@ -342,7 +342,7 @@ a {
   overflow: hidden;
 }
 
-/* Room sections (no-JS fallback / future overlay content, DIT-14) */
+/* Room sections (no-JS fallback; also the content moved into the overlay dialog) */
 
 .room-sections {
   max-width: 760px;
@@ -504,9 +504,138 @@ a {
   margin-right: auto;
 }
 
+/* Folder overlay (dialog), design B sea chart (plan.md sections 6 and 9, DIT-14) */
+
+.folder-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  color: var(--ink);
+  background-color: var(--parchment);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    repeating-linear-gradient(32deg, rgba(74, 48, 21, 0.05) 0 1px, transparent 1px 72px),
+    repeating-linear-gradient(-32deg, rgba(74, 48, 21, 0.05) 0 1px, transparent 1px 72px),
+    url("../assets/compass-rose-pale.svg"),
+    url("../assets/coastline.svg");
+  background-repeat: repeat, repeat, repeat, repeat, no-repeat, no-repeat;
+  background-size: 18px 18px, 18px 18px, auto, auto, 110px 110px, 100% 140px;
+  background-position:
+    0 0, 0 0, 0 0, 0 0,
+    calc(100% - 1.25rem) 5rem,
+    center bottom;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.folder-overlay::backdrop {
+  background: rgba(74, 48, 21, 0.45);
+}
+
+.folder-overlay .overlay-mount {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 4rem 1rem 3rem;
+}
+
+.folder-overlay .room-section-inner {
+  background: var(--parchment-panel);
+}
+
+.overlay-close {
+  position: fixed;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 1;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--ink);
+  background: var(--parchment-panel);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.overlay-close:hover {
+  background: var(--parchment-deep);
+}
+
+@media (min-width: 600px) {
+  .folder-overlay .overlay-mount {
+    padding-top: 2.5rem;
+  }
+
+  .overlay-close {
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+}
+
+/* Growth transition: shared view-transition-name between the clicked folder
+   icon and the dialog morphs one into the other (public/js/overlay.js sets
+   and clears the name per open/close). Browsers without the View Transitions
+   API fall back to the @starting-style scale-in below. */
+
+::view-transition-old(folder-active),
+::view-transition-new(folder-active) {
+  animation-duration: 0.28s;
+}
+
+@supports not (view-transition-name: none) {
+  .folder-overlay[open] {
+    animation: overlay-pop 0.22s ease-out;
+    transform-origin: center;
+  }
+
+  @keyframes overlay-pop {
+    from {
+      opacity: 0;
+      transform: scale(0.92);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
     animation: none !important;
+  }
+
+  ::view-transition-old(folder-active),
+  ::view-transition-new(folder-active) {
+    animation: none !important;
+  }
+
+  /* "nur Einblenden" (plan.md section 6): fade only, no grow/scale. More
+     specific than the blanket reset above, so it still applies. */
+  .folder-overlay[open] {
+    animation: overlay-fade-in 0.15s ease-out !important;
+  }
+
+  @keyframes overlay-fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
   }
 }

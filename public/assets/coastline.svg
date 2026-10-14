@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" preserveAspectRatio="none" role="img" aria-hidden="true" focusable="false">
+  <!-- Own drawing: an abstract, hinted coastline for the overlay background. Not official One Piece artwork.
+       preserveAspectRatio="none" lets it stretch across the full dialog width (background-size: 100% ...)
+       instead of being letterboxed to a centered strip. -->
+  <path
+    d="M0,96 C40,80 60,104 96,88 C132,72 150,100 188,84 C226,68 248,96 284,80 C320,64 344,92 400,72 L400,120 L0,120 Z"
+    fill="#4a3015"
+    opacity="0.14"
+  />
+  <path
+    d="M0,96 C40,80 60,104 96,88 C132,72 150,100 188,84 C226,68 248,96 284,80 C320,64 344,92 400,72"
+    fill="none"
+    stroke="#4a3015"
+    stroke-width="1.5"
+    opacity="0.25"
+  />
+</svg>
