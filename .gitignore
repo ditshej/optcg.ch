@@ -2,3 +2,8 @@
 /vendor/
 /.phpunit.cache/
 /.phpunit.result.cache
+
+# Deploy connection data for ./deploy.sh: host, port, path. No secrets —
+# authentication is by SSH key — but it is machine-local. The tracked
+# template is .env.deploy.example.
+.env.deploy
