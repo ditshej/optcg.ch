@@ -6,8 +6,8 @@ namespace Optcg\View;
 
 /**
  * The "Add your shop" tile in the Shops (galley) room (plan.md sections 5a
- * and 8): shops are delivered later by ditshej, so until then this is the
- * only entry. Not part of data/links/galley.yaml; added at render time.
+ * and 8): shops are delivered later by the maintainer, so until then this is
+ * the only entry. Not part of data/links/galley.yaml; added at render time.
  */
 final class AddShopLink
 {

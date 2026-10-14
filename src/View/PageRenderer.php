@@ -10,8 +10,7 @@ use Twig\Loader\FilesystemLoader;
 /**
  * Builds the view model for the overview page and renders it through the
  * Twig templates in templates/ (no build step: Twig compiles templates to
- * PHP at request time, cache disabled, following tcg-prizing's plain-PHP
- * hosting on metanet).
+ * PHP at request time, cache disabled, for plain-PHP shared hosting).
  */
 final class PageRenderer
 {

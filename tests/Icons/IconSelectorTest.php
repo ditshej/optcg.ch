@@ -9,8 +9,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Covers the icon selection logic (docs/plan.md section 5) against local
- * HTML/manifest fixtures, without any network access (DIT-12 acceptance
- * criteria): tier priority (apple-touch-icon > manifest > <link rel="icon">
+ * HTML/manifest fixtures, without any network access: tier priority
+ * (apple-touch-icon > manifest > <link rel="icon">
  * > /favicon.ico), "largest square wins" within a tier, and the
  * "< 64 px -> no icon" floor.
  */

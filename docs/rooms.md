@@ -33,5 +33,5 @@ videos is its main purpose, not building decks.
 
 ## Notes
 
-- *Shops* and *Community* start without contributed links; ditshej adds the
+- *Shops* and *Community* start without contributed links; the maintainer adds the
   first links there later (see `docs/plan.md` section 5a).

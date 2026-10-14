@@ -7,7 +7,7 @@ namespace Optcg\Data;
 /**
  * One validation problem, always naming the file, the affected link id
  * (when known) and a concrete fix, so a contributor can act on it without
- * reading the validator source (see DIT-10 acceptance criteria).
+ * reading the validator source.
  */
 final class ValidationError
 {
