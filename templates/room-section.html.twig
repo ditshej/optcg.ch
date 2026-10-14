@@ -1,0 +1,33 @@
+{#
+ # The full link list of one room (plan.md section 9): reachable without
+ # JavaScript as a plain section further down the page. The dialog overlay
+ # on top of this markup is built in a later task (DIT-14).
+ #}
+{% set roomId = r.room.id %}
+{% set headingId = roomId ~ '-heading' %}
+<section id="{{ roomId }}" class="room-section" style="--room-color: {{ r.color }}" aria-labelledby="{{ headingId }}">
+    <div class="room-section-inner">
+        <a class="back-link" href="#overview">&larr; Back to the chart</a>
+        <h2 id="{{ headingId }}">{{ r.room.name }} <span class="room-character">· {{ r.room.character }}</span></h2>
+        <p class="room-description">{{ r.room.description }}</p>
+        {% if r.links is empty %}
+            <p class="room-empty">No links here yet.</p>
+        {% else %}
+            <ul class="link-list">
+                {% for link in r.links %}
+                    <li class="link-tile{{ link.is_add_shop|default(false) ? ' link-tile-add' : '' }}">
+                        <a href="{{ link.url }}" target="_blank" rel="noopener">
+                            <span class="link-icon">{{ include('_tile-visual.html.twig', {tile: link.tile}, false) }}</span>
+                            <span class="link-title">
+                                {{ link.title }}
+                                {% if link.language|default('en') != 'en' %}
+                                    <span class="lang-badge">{{ link.language|upper }}</span>
+                                {% endif %}
+                            </span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</section>

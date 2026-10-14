@@ -1,0 +1,17 @@
+{#
+ # Footer, following the pattern of prizing.optcg.ch (views/about.php and
+ # views/discord-profile.php): a Discord contact line and a by-line, plus
+ # the fan disclaimer and privacy note from plan.md section 9. The Discord
+ # profile URL is kept in exactly one place (Optcg\View\DiscordProfile).
+ #}
+<footer class="site-footer">
+    <p class="footer-contact">Questions or ideas? Say so on Discord —
+        <a href="{{ discordProfileUrl }}" target="_blank" rel="noreferrer">ditshej</a></p>
+    <p class="footer-by">created by
+        <a href="https://ditshej.ch" target="_blank" rel="noreferrer">ditshej</a>
+        with AI
+        <span class="footer-bar" aria-hidden="true">|</span>
+        <a href="https://github.com/ditshej/optcg.ch" target="_blank" rel="noreferrer">GitHub</a></p>
+    <p class="footer-disclaimer">Fan site. Not affiliated with Bandai, Toei or Shueisha.</p>
+    <p class="footer-privacy">No cookies, no tracking, no requests to other servers. The host stores technical server logs.</p>
+</footer>
