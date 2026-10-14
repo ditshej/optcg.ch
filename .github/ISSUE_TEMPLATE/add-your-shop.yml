@@ -1,0 +1,56 @@
+name: Add your shop
+description: Suggest your shop for the Galley room on optcg.ch (no Git knowledge needed).
+title: "Add shop: "
+labels: ["suggestion", "shop"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your interest! Shops are reviewed and decided by ditshej, the same way as any other link.
+        There is no automatic form and no e-mail intake, and no right to be listed.
+        See [CONTRIBUTING.md](https://github.com/ditshej/optcg.ch/blob/main/CONTRIBUTING.md) for the full rules.
+  - type: input
+    id: shop-url
+    attributes:
+      label: Shop URL
+      description: Your shop's home page, or its OPTCG category page. Must use https://.
+      placeholder: "https://example-shop.com/one-piece-card-game"
+    validations:
+      required: true
+  - type: input
+    id: shop-name
+    attributes:
+      label: Shop name
+      placeholder: "Example Shop"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: One sentence describing your shop and what it sells.
+    validations:
+      required: true
+  - type: input
+    id: language
+    attributes:
+      label: Language of the shop website
+      description: Two-letter code, for example "en" or "de".
+      placeholder: "en"
+    validations:
+      required: true
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Shop rules
+      options:
+        - label: The shop sells One Piece Card Game products.
+          required: true
+        - label: The shop has its own https:// website (not a marketplace-only listing).
+          required: true
+        - label: The link points to the shop's home page or its OPTCG category page.
+          required: true
+        - label: The link is not an affiliate link.
+          required: true
+        - label: I understand there is no right to be listed and ditshej decides.
+          required: true

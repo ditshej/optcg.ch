@@ -50,3 +50,7 @@ composer test
 
 PHPUnit tests for the data loader/validator and the icon selection logic. The icon selection tests
 run against local HTML/manifest fixtures only, no network access is used or required.
+
+## Contributing
+
+Want to suggest a link or your shop? See [CONTRIBUTING.md](CONTRIBUTING.md).

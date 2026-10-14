@@ -1,0 +1,69 @@
+name: Suggest a link
+description: Suggest a link for optcg.ch (no Git knowledge needed).
+title: "Suggest a link: "
+labels: ["suggestion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a link! See [CONTRIBUTING.md](https://github.com/ditshej/optcg.ch/blob/main/CONTRIBUTING.md) for the full rules.
+        If you can use Git, a pull request is faster and more likely to be merged as-is.
+  - type: input
+    id: url
+    attributes:
+      label: Link URL
+      description: Must use https://, no tracking or affiliate parameters.
+      placeholder: "https://example.com"
+    validations:
+      required: true
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      description: Short title, fits in 1-2 lines under the tile.
+      placeholder: "Example Link"
+    validations:
+      required: true
+  - type: dropdown
+    id: room
+    attributes:
+      label: Room
+      description: Which room of the Thousand Sunny does this link belong to?
+      options:
+        - "Figurehead (Official)"
+        - "Navigation Room (Events)"
+        - "Crow's Nest (Training)"
+        - "Library (Rules & Cards)"
+        - "Workshop (Tools)"
+        - "Galley (Shops)"
+        - "Lawn Deck (Community)"
+        - "Aquarium Bar (Media)"
+        - "Not sure"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: One sentence describing what this link is for, and why it is relevant to the One Piece Card Game.
+    validations:
+      required: true
+  - type: input
+    id: language
+    attributes:
+      label: Language of the target website
+      description: Two-letter code, for example "en" or "de".
+      placeholder: "en"
+    validations:
+      required: true
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Ground rules
+      options:
+        - label: The link uses https:// and has no tracking or affiliate parameters.
+          required: true
+        - label: The link is related to the One Piece Card Game.
+          required: true
+        - label: The site is actively maintained (not dead or abandoned).
+          required: true
