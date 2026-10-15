@@ -34,10 +34,12 @@ body:
         - "Navigation Room (Events)"
         - "Crow's Nest (Training)"
         - "Library (Rules & Cards)"
-        - "Workshop (Tools)"
+        - "Usopp Factory (Tools)"
         - "Galley (Shops)"
-        - "Lawn Deck (Community)"
+        - "Sick Bay (New Players)"
+        - "Soldier Dock (Deckbuilding)"
         - "Aquarium Bar (Media)"
+        - "Helm (Community)"
         - "Not sure"
     validations:
       required: true

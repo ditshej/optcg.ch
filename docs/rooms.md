@@ -1,11 +1,12 @@
 # Rooms of the Thousand Sunny
 
-`optcg.ch` groups all links into 8 rooms of the Thousand Sunny. Every room is a
-folder on the overview page. The data lives in [`data/rooms.yaml`](../data/rooms.yaml);
-this page explains the rooms in plain language. See `docs/plan.md` (section 4)
-for the original decision.
+`optcg.ch` groups all links into 10 rooms of the Thousand Sunny, one per crew
+member. Every room is a folder on the overview page. The data lives in
+[`data/rooms.yaml`](../data/rooms.yaml); this page explains the rooms in plain
+language. See `docs/plan.md` (section 4) for the original decision and its
+later revision to 10 rooms.
 
-## The 8 rooms
+## The 10 rooms
 
 | Order | `id` | Room | Character | Topic (label under folder) |
 |---|---|---|---|---|
@@ -13,10 +14,12 @@ for the original decision.
 | 2 | `navigation-room` | Navigation Room | Nami | Events |
 | 3 | `crows-nest` | Crow's Nest | Zoro | Training |
 | 4 | `library` | Library | Robin | Rules & Cards |
-| 5 | `workshop` | Workshop | Franky / Usopp | Tools |
+| 5 | `usopp-factory` | Usopp Factory | Usopp | Tools |
 | 6 | `galley` | Galley | Sanji | Shops |
-| 7 | `lawn-deck` | Lawn Deck | Crew | Community |
-| 8 | `aquarium-bar` | Aquarium Bar | Brook | Media |
+| 7 | `sick-bay` | Sick Bay | Chopper | New Players |
+| 8 | `soldier-dock` | Soldier Dock | Franky | Deckbuilding |
+| 9 | `aquarium-bar` | Aquarium Bar | Brook | Media |
+| 10 | `helm` | Helm | Jinbe | Community |
 
 The folder on the overview page shows only the **topic** (for example "Shops").
 The overlay for a room shows the room name and the character as a subtitle,
@@ -31,7 +34,10 @@ room, its **main purpose** wins.
 *Media* (`aquarium-bar`), not to *Training* (`crows-nest`), because publishing
 videos is its main purpose, not building decks.
 
+**Example:** an online deck builder belongs to *Deckbuilding* (`soldier-dock`),
+not to *Training* (`crows-nest`); *Training* keeps simulators and meta lists.
+
 ## Notes
 
-- *Shops* and *Community* start without contributed links; the maintainer adds the
-  first links there later (see `docs/plan.md` section 5a).
+- *Shops* and *Community* start without contributed links; the maintainer adds
+  the first links there later (see `docs/plan.md` section 5a).

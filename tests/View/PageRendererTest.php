@@ -14,14 +14,15 @@ final class PageRendererTest extends TestCase
 {
     private const ROOM_IDS = [
         'figurehead', 'navigation-room', 'crows-nest', 'library',
-        'workshop', 'galley', 'lawn-deck', 'aquarium-bar',
+        'usopp-factory', 'galley', 'sick-bay', 'soldier-dock',
+        'aquarium-bar', 'helm',
     ];
 
-    public function testRendersAllEightRoomsAsFoldersAndSections(): void
+    public function testRendersAllTenRoomsAsFoldersAndSections(): void
     {
         $html = $this->render($this->rooms(), []);
 
-        self::assertSame(8, substr_count($html, 'class="folder"'));
+        self::assertSame(10, substr_count($html, 'class="folder"'));
 
         foreach (self::ROOM_IDS as $id) {
             self::assertStringContainsString('id="' . $id . '"', $html);
@@ -61,7 +62,7 @@ final class PageRendererTest extends TestCase
 
     public function testLinkWithAnExistingIconFileRendersAnImgTag(): void
     {
-        $links = ['workshop' => [$this->link('prizing', 'TCG Prizing', 'https://prizing.optcg.ch')]];
+        $links = ['usopp-factory' => [$this->link('prizing', 'TCG Prizing', 'https://prizing.optcg.ch')]];
         $html = $this->render($this->rooms(), $links, static fn (string $f): bool => $f === 'prizing.png');
 
         self::assertStringContainsString('<img src="icons/prizing.png"', $html);
@@ -69,7 +70,7 @@ final class PageRendererTest extends TestCase
 
     public function testLinkWithoutAnIconFileFallsBackToTheInitialLetterTile(): void
     {
-        $links = ['workshop' => [$this->link('two-moons', 'Two Moons', 'https://twomoons.example')]];
+        $links = ['usopp-factory' => [$this->link('two-moons', 'Two Moons', 'https://twomoons.example')]];
         $html = $this->render($this->rooms(), $links, static fn (string $f): bool => false);
 
         self::assertStringContainsString('class="tile-fallback" style="background-color: #9c5518"', $html);
