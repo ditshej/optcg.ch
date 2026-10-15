@@ -541,6 +541,10 @@ a {
   margin: 0;
   padding: 0;
   border: none;
+  /* public/js/overlay.js scales/translates this box from the clicked folder
+     icon's rect to full screen (and back); the math assumes a top-left
+     transform origin, not the CSS default of center. */
+  transform-origin: 0 0;
   color: var(--ink);
   background-color: var(--parchment);
   background-image:
@@ -608,59 +612,16 @@ a {
   }
 }
 
-/* Growth transition: shared view-transition-name between the clicked folder
-   icon and the dialog morphs one into the other (public/js/overlay.js sets
-   and clears the name per open/close). Browsers without the View Transitions
-   API fall back to the @starting-style scale-in below. */
-
-::view-transition-old(folder-active),
-::view-transition-new(folder-active) {
-  animation-duration: 0.28s;
-}
-
-@supports not (view-transition-name: none) {
-  .folder-overlay[open] {
-    animation: overlay-pop 0.22s ease-out;
-    transform-origin: center;
-  }
-
-  @keyframes overlay-pop {
-    from {
-      opacity: 0;
-      transform: scale(0.92);
-    }
-
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-}
+/* The open/close grow-to-fullscreen motion (plan.md section 6) is driven
+   entirely by public/js/overlay.js through the Web Animations API — a FLIP
+   transform on .folder-overlay plus a separate fade on .overlay-mount and
+   ::backdrop. That script also reads prefers-reduced-motion and swaps the
+   grow for a short fade. The blanket reset below only needs to cover the
+   remaining plain CSS transitions on the page (e.g. the link-tile hover). */
 
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
     animation: none !important;
-  }
-
-  ::view-transition-old(folder-active),
-  ::view-transition-new(folder-active) {
-    animation: none !important;
-  }
-
-  /* "nur Einblenden" (plan.md section 6): fade only, no grow/scale. More
-     specific than the blanket reset above, so it still applies. */
-  .folder-overlay[open] {
-    animation: overlay-fade-in 0.15s ease-out !important;
-  }
-
-  @keyframes overlay-fade-in {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
   }
 }
