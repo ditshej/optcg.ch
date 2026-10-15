@@ -522,12 +522,11 @@ a {
   margin: 0 0.4rem;
 }
 
-.footer-disclaimer,
-.footer-privacy {
+.site-footer .footer-disclaimer,
+.site-footer .footer-privacy {
   font-size: 0.8rem;
   max-width: 50ch;
-  margin-left: auto;
-  margin-right: auto;
+  margin-inline: auto;
 }
 
 /* Folder overlay (dialog), design B sea chart (plan.md sections 6 and 9) */
