@@ -20,7 +20,13 @@
   const mount = document.getElementById('overlay-mount');
   const closeButton = document.getElementById('overlay-close');
 
-  if (!dialog || !mount || !closeButton || typeof dialog.animate !== 'function') {
+  if (
+    !dialog ||
+    !mount ||
+    !closeButton ||
+    typeof dialog.showModal !== 'function' ||
+    typeof dialog.animate !== 'function'
+  ) {
     return;
   }
 
@@ -32,6 +38,36 @@
   let homeFor = null;
   let returnFocusTo = null;
   let isAnimating = false;
+
+  // Every Animation created by animateOpen/animateClose is tracked here so it
+  // can be cancelled as a group. animateClose uses fill: 'forwards' so the
+  // shrunk/faded end state holds until dialog.close() runs; those finished
+  // animations stay in the effect stack afterwards and, left alone, keep
+  // overriding the next animateOpen's keyframes on the same properties (the
+  // dialog would then open frozen at the old shrink transform and opacity 0).
+  // Cancelling them once the dialog has actually closed clears that state.
+  let activeAnimations = [];
+
+  const trackAnimation = (animation) => {
+    activeAnimations.push(animation);
+    return animation;
+  };
+
+  const cancelActiveAnimations = () => {
+    activeAnimations.forEach((animation) => animation.cancel());
+    activeAnimations = [];
+  };
+
+  // Resets the animation lock and re-applies whatever the hash says right
+  // now. A hashchange that arrives while isAnimating is true is ignored by
+  // openOverlay/closeOverlay (they'd otherwise fight the animation in
+  // flight); calling this once the animation settles replays that latest
+  // hash so a fast back-button tap during the 320 ms motion still ends up
+  // in the correct open/closed state instead of being lost.
+  const onAnimationSettled = () => {
+    isAnimating = false;
+    syncToHash();
+  };
 
   const prefersReducedMotion = () =>
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -86,38 +122,38 @@
     const reduced = prefersReducedMotion();
 
     if (!tileRect || reduced) {
-      dialog.animate([{ opacity: 0 }, { opacity: 1 }], {
+      trackAnimation(dialog.animate([{ opacity: 0 }, { opacity: 1 }], {
         duration: FADE_DURATION,
         easing: 'ease-out',
         pseudoElement: '::backdrop',
-      });
-      const finished = mount.animate([{ opacity: 0 }, { opacity: 1 }], {
+      }));
+      const finished = trackAnimation(mount.animate([{ opacity: 0 }, { opacity: 1 }], {
         duration: FADE_DURATION,
         easing: 'ease-out',
-      }).finished;
-      finished.then(() => { isAnimating = false; }, () => { isAnimating = false; });
+      })).finished;
+      finished.then(onAnimationSettled, onAnimationSettled);
       return;
     }
 
-    const grow = dialog.animate(
+    const grow = trackAnimation(dialog.animate(
       [{ transform: invertTransform(tileRect, toRect) }, { transform: 'none' }],
       { duration: GROW_DURATION, easing: GROW_EASING },
-    );
-    dialog.animate([{ opacity: 0 }, { opacity: 1 }], {
+    ));
+    trackAnimation(dialog.animate([{ opacity: 0 }, { opacity: 1 }], {
       duration: GROW_DURATION,
       easing: 'ease-out',
       pseudoElement: '::backdrop',
-    });
+    }));
 
     const contentDelay = Math.round(GROW_DURATION * 0.55);
-    mount.animate([{ opacity: 0 }, { opacity: 1 }], {
+    trackAnimation(mount.animate([{ opacity: 0 }, { opacity: 1 }], {
       duration: GROW_DURATION - contentDelay,
       delay: contentDelay,
       easing: 'ease-out',
       fill: 'backwards',
-    });
+    }));
 
-    grow.finished.then(() => { isAnimating = false; }, () => { isAnimating = false; });
+    grow.finished.then(onAnimationSettled, onAnimationSettled);
   };
 
   const animateClose = (tileRect, onDone) => {
@@ -125,36 +161,36 @@
     const reduced = prefersReducedMotion();
 
     if (!tileRect || reduced) {
-      dialog.animate([{ opacity: 1 }, { opacity: 0 }], {
+      trackAnimation(dialog.animate([{ opacity: 1 }, { opacity: 0 }], {
         duration: FADE_DURATION,
         easing: 'ease-out',
         pseudoElement: '::backdrop',
         fill: 'forwards',
-      });
-      const finished = mount.animate([{ opacity: 1 }, { opacity: 0 }], {
+      }));
+      const finished = trackAnimation(mount.animate([{ opacity: 1 }, { opacity: 0 }], {
         duration: FADE_DURATION,
         easing: 'ease-out',
         fill: 'forwards',
-      }).finished;
+      })).finished;
       finished.then(onDone, onDone);
       return;
     }
 
-    const shrink = dialog.animate(
+    const shrink = trackAnimation(dialog.animate(
       [{ transform: 'none' }, { transform: invertTransform(tileRect, fromRect) }],
       { duration: GROW_DURATION, easing: GROW_EASING, fill: 'forwards' },
-    );
-    dialog.animate([{ opacity: 1 }, { opacity: 0 }], {
+    ));
+    trackAnimation(dialog.animate([{ opacity: 1 }, { opacity: 0 }], {
       duration: GROW_DURATION,
       easing: 'ease-out',
       pseudoElement: '::backdrop',
       fill: 'forwards',
-    });
-    mount.animate([{ opacity: 1 }, { opacity: 0 }], {
+    }));
+    trackAnimation(mount.animate([{ opacity: 1 }, { opacity: 0 }], {
       duration: Math.round(GROW_DURATION * 0.35),
       easing: 'ease-out',
       fill: 'forwards',
-    });
+    }));
 
     shrink.finished.then(onDone, onDone);
   };
@@ -209,12 +245,16 @@
     const tileRect = iconRectFor(openRoomId);
     isAnimating = true;
     animateClose(tileRect, () => {
-      isAnimating = false;
       dialog.close();
     });
   };
 
+  // Fires for every close path alike (the shrink animation finishing,
+  // a backdrop tap, and a native Esc-key close that bypasses animateClose
+  // entirely), so it is the one place that reliably runs after dialog.close()
+  // has actually happened and can clean up what that close leaves behind.
   dialog.addEventListener('close', () => {
+    cancelActiveAnimations();
     moveContentHome();
     dialog.removeAttribute('aria-labelledby');
 
@@ -233,6 +273,8 @@
       returnFocusTo.focus();
       returnFocusTo = null;
     }
+
+    onAnimationSettled();
   });
 
   closeButton.addEventListener('click', closeOverlay);
