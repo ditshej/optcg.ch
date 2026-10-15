@@ -3,6 +3,10 @@
 /.phpunit.cache/
 /.phpunit.result.cache
 
+# Review screenshots are evidence for pull requests, not part of the site.
+# Attach them to the task instead of committing them here.
+/docs/review/
+
 # Deploy connection data for ./deploy.sh: host, port, path. No secrets —
 # authentication is by SSH key — but it is machine-local. The tracked
 # template is .env.deploy.example.
