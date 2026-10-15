@@ -16,10 +16,12 @@ final class RoomColors
         'navigation-room' => '#1f5c7a',
         'crows-nest' => '#2f6b3a',
         'library' => '#5b3a73',
-        'workshop' => '#9c5518',
+        'usopp-factory' => '#9c5518',
         'galley' => '#1f6b63',
-        'lawn-deck' => '#8a7418',
+        'sick-bay' => '#8b3a5c',
+        'soldier-dock' => '#46576b',
         'aquarium-bar' => '#2a3a6b',
+        'helm' => '#8a7418',
     ];
 
     public static function forRoom(string $roomId): string

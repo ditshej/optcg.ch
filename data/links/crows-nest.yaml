@@ -29,20 +29,6 @@ links:
     language: en
     icon_source: fetched
 
-  - id: egman-deckbuilder
-    title: Egman Deckbuilder
-    url: "https://deckbuilder.egmanevents.com/optcg/deck"
-    description: "Free online deck builder with full card database and tournament-legality checks."
-    language: en
-    icon_source: fetched
-
-  - id: cardkaizoku-deckbuilder
-    title: Car D. Kaizoku Deckbuilder
-    url: "https://www.cardkaizoku.com/deckbuilder"
-    description: "Free online deck builder for the One Piece Card Game."
-    language: en
-    icon_source: fetched
-
   - id: opmetagame
     title: OP Metagame
     url: "https://opmetagame.com/"
