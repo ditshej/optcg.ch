@@ -104,6 +104,60 @@ final class PageRendererTest extends TestCase
         self::assertStringContainsString('<script src="js/overlay.js" defer></script>', $html);
     }
 
+    public function testLinkDescriptionIsShownBesideTheTile(): void
+    {
+        $links = ['library' => [$this->link('official-rules', 'Official Rules', 'https://example.com/rules')]];
+
+        $html = $this->render($this->rooms(), $links);
+
+        self::assertStringContainsString('<span class="link-description">A link.</span>', $html);
+    }
+
+    public function testRoomDescriptionAppearsAboveTheLinksInTheOverlay(): void
+    {
+        $html = $this->render($this->rooms(), []);
+
+        self::assertStringContainsString('<p class="room-description">Description.</p>', $html);
+    }
+
+    public function testSuggestLinkTileIsOfferedInEveryRoomExceptShops(): void
+    {
+        $html = $this->render($this->rooms(), []);
+
+        foreach (self::ROOM_IDS as $id) {
+            $section = $this->roomSection($html, $id);
+
+            if ($id === 'galley') {
+                self::assertStringNotContainsString('Suggest a link', $section, 'galley (Shops) must not offer Suggest a link');
+                continue;
+            }
+
+            self::assertStringContainsString('Suggest a link', $section, "{$id} is missing the Suggest a link tile");
+            self::assertStringContainsString(
+                'https://github.com/ditshej/optcg.ch/issues/new?template=suggest-a-link.yml&amp;room=',
+                $section,
+            );
+        }
+    }
+
+    public function testSuggestLinkTileHasNoEmptyDescriptionLine(): void
+    {
+        $html = $this->render($this->rooms(), []);
+
+        self::assertStringNotContainsString('<span class="link-description"></span>', $html);
+    }
+
+    public function testSuggestLinkTileIsLastAndNeverInTheFolderPreview(): void
+    {
+        $links = ['crows-nest' => [$this->link('one-link', 'One Link', 'https://example.com/one')]];
+
+        $html = $this->render($this->rooms(), $links);
+        $section = $this->roomSection($html, 'crows-nest');
+
+        self::assertMatchesRegularExpression('/One Link.*Suggest a link/s', $section);
+        self::assertStringNotContainsString('Suggest a link', $this->folderTile($html, 'crows-nest'));
+    }
+
     public function testMoreThanFourLinksCollapseTheFourthFolderSlot(): void
     {
         $links = ['crows-nest' => array_map(
@@ -114,6 +168,28 @@ final class PageRendererTest extends TestCase
         $html = $this->render($this->rooms(), $links);
 
         self::assertStringContainsString('folder-slot-group', $html);
+    }
+
+    private function roomSection(string $html, string $roomId): string
+    {
+        self::assertMatchesRegularExpression(
+            '/<section id="' . preg_quote($roomId, '/') . '".*?<\/section>/s',
+            $html,
+        );
+        preg_match('/<section id="' . preg_quote($roomId, '/') . '".*?<\/section>/s', $html, $matches);
+
+        return $matches[0];
+    }
+
+    private function folderTile(string $html, string $roomId): string
+    {
+        self::assertMatchesRegularExpression(
+            '/<a class="folder" href="#' . preg_quote($roomId, '/') . '".*?<\/a>/s',
+            $html,
+        );
+        preg_match('/<a class="folder" href="#' . preg_quote($roomId, '/') . '".*?<\/a>/s', $html, $matches);
+
+        return $matches[0];
     }
 
     /**

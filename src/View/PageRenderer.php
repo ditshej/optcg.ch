@@ -28,6 +28,7 @@ final class PageRenderer
             'cache' => false,
         ]);
         $this->twig->addGlobal('discordProfileUrl', DiscordProfile::URL);
+        $this->twig->addGlobal('suggestLinkIssueUrl', SuggestLinkEntry::ISSUE_TEMPLATE_URL);
     }
 
     /**
@@ -60,6 +61,11 @@ final class PageRenderer
 
         $color = RoomColors::forRoom((string) $room['id']);
         $preview = FolderPreview::layout($links);
+
+        if (SuggestLinkEntry::appliesTo($room)) {
+            $links[] = SuggestLinkEntry::entry($room);
+        }
+
         $toTile = fn (?array $link): ?array => TileVisual::view($link, $color, $this->icons);
 
         return [

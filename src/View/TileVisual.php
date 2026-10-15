@@ -21,7 +21,7 @@ final class TileVisual
             return null;
         }
 
-        if (!empty($link['is_add_shop'])) {
+        if (!empty($link['is_add_shop']) || !empty($link['is_suggestion'])) {
             return ['kind' => 'add'];
         }
 
