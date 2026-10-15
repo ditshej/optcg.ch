@@ -35,22 +35,31 @@ The maintainer and other people add links by pull request, directly on GitHub, w
 
 ## 4. Rooms of the Thousand Sunny
 
-8 rooms = 8 folders. The label under a folder shows **only the topic**, for example "Shops".
-Room name and character appear in the overlay as title and subtitle, for example "Galley · Sanji".
+10 rooms = 10 folders, one per crew member. Decided by the maintainer on 2026-10-15
+(plan revision 14), replacing the original 8 rooms: *Workshop* is renamed to
+*Usopp Factory* (same topic, Usopp only), *Lawn Deck* is renamed to *Helm*
+(character Jinbe), and two new rooms split out of *Crow's Nest*: *Sick Bay*
+(New Players) and *Soldier Dock* (Deckbuilding, the deck builders that used to
+live in *Crow's Nest*). The label under a folder shows **only the topic**, for
+example "Shops". Room name and character appear in the overlay as title and
+subtitle, for example "Galley · Sanji".
 
 | Order | `id` | Room | Character | Topic (label under folder) | Content |
 |---|---|---|---|---|---|
 | 1 | `figurehead` | Figurehead | Luffy | Official | official website, Bandai TCG+, official announcements |
 | 2 | `navigation-room` | Navigation Room | Nami | Events | egmanevents, tournament calendars, locals |
-| 3 | `crows-nest` | Crow's Nest | Zoro | Training | simulators, meta lists, deck builders |
+| 3 | `crows-nest` | Crow's Nest | Zoro | Training | simulators, meta lists |
 | 4 | `library` | Library | Robin | Rules & Cards | rules, card databases, info sites |
-| 5 | `workshop` | Workshop | Franky / Usopp | Tools | prizing.optcg.ch, 3v3, Two Moons |
+| 5 | `usopp-factory` | Usopp Factory | Usopp | Tools | prizing.optcg.ch, 3v3, Two Moons |
 | 6 | `galley` | Galley | Sanji | Shops | recommended shops, "Add your shop" |
-| 7 | `lawn-deck` | Lawn Deck | Crew | Community | social media profiles, Discord, groups |
-| 8 | `aquarium-bar` | Aquarium Bar | Brook | Media | YouTube, Twitch, podcasts |
+| 7 | `sick-bay` | Sick Bay | Chopper | New Players | official rules, play guide, FAQ, teaching app |
+| 8 | `soldier-dock` | Soldier Dock | Franky | Deckbuilding | online deck builders |
+| 9 | `aquarium-bar` | Aquarium Bar | Brook | Media | YouTube, Twitch, podcasts |
+| 10 | `helm` | Helm | Jinbe | Community | social media profiles, Discord, groups |
 
 Rule: every link has exactly one room. If a link fits two rooms, its main purpose wins.
 Example: a YouTube channel with deck guides belongs to *Media*, not *Training*.
+Example: an online deck builder belongs to *Deckbuilding*, not *Training*.
 Task 1 reviews the exact English texts (labels, descriptions).
 
 ## 5. Data model (YAML)
@@ -206,7 +215,7 @@ Planned later.
 | No. | Task |
 |---|---|
 | 0 | `docs/plan.md` (this file) as a pull request |
-| 1 | Rooms: `data/rooms.yaml` and `docs/rooms.md` (8 rooms from section 4, English texts) |
+| 1 | Rooms: `data/rooms.yaml` and `docs/rooms.md` (10 rooms from section 4, English texts) |
 | 2 | Initial link list: research 3–8 links per room (without shops and social media), with source and reason |
 | 3 | Data schema, validation, CI |
 | 3a | Icon script `bin/fetch-icons.php` and a workflow that adds icons by pull request; fetch icons for the initial list |

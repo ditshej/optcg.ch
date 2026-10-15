@@ -9,8 +9,9 @@
 Instead of (or in addition to) the folder grid of v1, the overview page shows a
 side-on cross-section drawing of the Thousand Sunny, similar to the official
 blueprint-style cutaways but as an own SVG drawing, not an official image. Each
-room (figurehead, navigation room, crow's nest, library, workshop, galley, lawn
-deck, aquarium bar) is a clickable hotspot on the drawing.
+room (figurehead, navigation room, crow's nest, library, Usopp factory, galley,
+sick bay, soldier dock, aquarium bar, helm) is a clickable hotspot on the
+drawing.
 
 Clicking a room opens the **same full-screen folder overlay** v1 already has,
 with the same tiles for that room. The ship tour only changes how a room is
