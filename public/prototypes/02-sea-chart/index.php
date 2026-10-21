@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-$root = dirname(__DIR__, 2);
+$root = dirname(__DIR__, 3);
 require $root . '/vendor/autoload.php';
 
 use Optcg\Data\DataPaths;
@@ -236,7 +236,7 @@ function chart(array $rooms, array $linksByRoom, bool $mobile): string
                         <?php foreach ($linksByRoom[$room['id']] as $link): ?>
                             <li><a href="<?= e($link['url']) ?>" target="_blank" rel="noopener noreferrer">
                                 <?php if ($icons->hasIcon($link)): ?>
-                                    <img src="../../public/icons/<?= e($icons->filename($link)) ?>" alt="" width="44" height="44" loading="lazy">
+                                    <img src="../../icons/<?= e($icons->filename($link)) ?>" alt="" width="44" height="44" loading="lazy">
                                 <?php else: ?>
                                     <span class="fallback" aria-hidden="true"><?= e($icons->initial($link)) ?></span>
                                 <?php endif; ?>
