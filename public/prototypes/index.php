@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-// Lists every prototypes/NN-slug/ folder. Name and description come from the folder's README.md:
+// Lists every public/prototypes/NN-slug/ folder. Name and description come from the folder's README.md:
 //   name        first "# " heading (a leading "NN ·" number is dropped)
 //   description the "**Idea:**" paragraph, else the first plain paragraph
 //   technique   the "**Animation technique:**" paragraph, if present
-// Adding a prototype needs no change here: create prototypes/NN-slug/ with an index.php (or index.html) and a README.md.
+// Adding a prototype needs no change here: create public/prototypes/NN-slug/ with an index.php (or index.html) and a README.md.
 
 function h(string $value): string
 {
@@ -69,6 +69,13 @@ function teaser(string $text, int $max = 230): string
     return rtrim($space !== false ? mb_substr($cut, 0, $space) : $cut, ' ,;:') . '…';
 }
 
+// The links below are relative, so the page must be served as /prototypes/ (with the trailing slash).
+$path = (string) parse_url((string) ($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH);
+if (!str_ends_with($path, '/') && !str_ends_with($path, '.php')) {
+    header('Location: ' . $path . '/', true, 301);
+    exit;
+}
+
 $items = [];
 foreach (glob(__DIR__ . '/[0-9][0-9]-*', GLOB_ONLYDIR) ?: [] as $dir) {
     $folder = basename($dir);
@@ -116,7 +123,7 @@ usort($items, static fn (array $a, array $b): int => strcmp($a['folder'], $b['fo
 <body>
 <main>
   <h1>Design prototypes</h1>
-  <p class="intro">Directions for the optcg.ch landing page. Each prototype is self-contained in <code>prototypes/NN-name/</code> and reads the real rooms and links from <code>data/</code>. Start locally with <code>php -S localhost:8000 -t .</code> in the repository root and open <code>/prototypes/</code>.</p>
+  <p class="intro">Directions for the optcg.ch landing page. Each prototype is self-contained in <code>public/prototypes/NN-name/</code> and reads the real rooms and links from <code>data/</code>. Start locally with <code>php -S localhost:8000 -t public</code> (or any local web server with <code>public/</code> as document root) and open <code>/prototypes/</code>.</p>
 <?php if ($items === []): ?>
   <p class="intro">No prototype folders found.</p>
 <?php else: ?>

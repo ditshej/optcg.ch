@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 // Loads the real rooms and links through the existing loader (no copy of the data).
 
-require __DIR__ . '/../../vendor/autoload.php';
+require __DIR__ . '/../../../vendor/autoload.php';
 
 use Optcg\Data\DataLoadException;
 use Optcg\Data\DataPaths;
@@ -15,7 +15,7 @@ use Optcg\Data\Loader;
  */
 function prototype_data(): array
 {
-    $root = dirname(__DIR__, 2);
+    $root = dirname(__DIR__, 3);
     $paths = new DataPaths($root);
     $loader = new Loader($paths);
 
@@ -33,7 +33,7 @@ function prototype_data(): array
     $icon = static function (array $link) use ($paths): ?string {
         $file = is_string($link['icon'] ?? null) && $link['icon'] !== '' ? $link['icon'] : $link['id'] . '.png';
 
-        return is_file($paths->iconsDir() . '/' . $file) ? '../../public/icons/' . rawurlencode($file) : null;
+        return is_file($paths->iconsDir() . '/' . $file) ? '../../icons/' . rawurlencode($file) : null;
     };
 
     return ['rooms' => $rooms, 'icon' => $icon];
