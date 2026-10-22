@@ -3,6 +3,10 @@
 **Status:** Accepted on 2026-10-11.
 This file is the English copy of the accepted plan. It is the reference for all build tasks.
 
+> **Update 2026-10-22:** the layout is being rebuilt as Sunny callouts.
+> See [plan-sunny-callouts.md](plan-sunny-callouts.md). It replaces the App Library
+> layout (section 9) and moves Events to the room `lawn-deck`.
+
 ## 1. Goal
 
 `optcg.ch` hosts a public overview page with links about the One Piece Card Game.
