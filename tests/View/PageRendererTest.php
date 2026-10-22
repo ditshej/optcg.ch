@@ -23,14 +23,34 @@ final class PageRendererTest extends TestCase
         $html = $this->render($this->rooms(), []);
 
         // Landscape callouts (plan) and room zones in both drawings.
-        self::assertSame(10, substr_count($html, 'class="callout"'));
+        self::assertSame(10, substr_count($html, 'class="callout" style="--i:'));
         self::assertSame(20, substr_count($html, 'class="zone"'));
-        self::assertSame(10, substr_count($html, '<li><a href="#'));
+        self::assertSame(10, substr_count($html, '"><a href="#'));
 
         foreach (self::ROOM_IDS as $id) {
             self::assertStringContainsString('id="' . $id . '"', $html);
             self::assertStringContainsString('href="#' . $id . '"', $html);
         }
+    }
+
+    public function testCalloutsAnnounceTopicRoomAndLinkCount(): void
+    {
+        $links = ['figurehead' => [$this->link('official-site', 'Official Site', 'https://onepiece-cardgame.com')]];
+
+        $html = $this->render($this->rooms(), $links);
+
+        self::assertMatchesRegularExpression('/aria-label="[^"]+, [^"]+, 1 link"/', $html);
+        self::assertMatchesRegularExpression('/aria-label="[^"]+, [^"]+, 0 links"/', $html);
+        self::assertStringContainsString('data-count="1 link"', $html);
+    }
+
+    public function testIntroAnimationIsGatedByLocalStorageNotCookies(): void
+    {
+        $html = $this->render($this->rooms(), []);
+
+        self::assertStringContainsString("localStorage.getItem('optcg-intro')", $html);
+        self::assertStringNotContainsString('document.cookie', $html);
+        self::assertStringContainsString('pathLength="1" class="hull', $html);
     }
 
     public function testLinkTilesUseSafeExternalAttributes(): void

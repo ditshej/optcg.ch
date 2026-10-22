@@ -61,6 +61,8 @@ final class PageRenderer
      */
     private function buildRoomView(array $room, array $links, string $number): array
     {
+        $linkCount = count($links); // real links only, not the "add" tiles below
+
         if ($room['id'] === AddShopLink::ROOM_ID) {
             $links[] = AddShopLink::entry();
         }
@@ -80,6 +82,7 @@ final class PageRenderer
                 $links,
             ),
             'color' => $color,
+            'linkCount' => $linkCount,
             'number' => $number,
             'ship' => ShipLayout::forRoom((string) $room['id']),
         ];

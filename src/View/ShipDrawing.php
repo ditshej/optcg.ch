@@ -35,8 +35,14 @@ final class ShipDrawing
     public static function svg(): string
     {
         return '<g class="draw" aria-hidden="true">'
-            . self::base() . self::hull() . self::structures() . self::interiors() . self::rig()
+            . self::drawable(self::base() . self::hull() . self::structures() . self::interiors() . self::rig())
             . '</g>';
+    }
+
+    /** Mark every outline with pathLength="1" so that the first-visit animation can draw it with a unit dash. */
+    private static function drawable(string $svg): string
+    {
+        return (string) preg_replace('/<(path|circle|polygon|rect) class="((?:part|thin|hull|deck|mast|rig)\b[^"]*)"/', '<$1 pathLength="1" class="$2"', $svg);
     }
 
     /** Level scale at the left edge and the length dimension below the ship. */

@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <script>document.documentElement.classList.add('js');</script>
+    <script>
+        document.documentElement.classList.add('js');
+        // The drawing-in animation runs on the first visit only; the marker is a localStorage flag, not a cookie.
+        try { if (!localStorage.getItem('optcg-intro')) { document.documentElement.classList.add('intro'); localStorage.setItem('optcg-intro', '1'); } } catch (e) {}
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#0b2a46">
     <title>optcg.ch — the Thousand Sunny, a chart of One Piece Card Game links</title>
@@ -30,7 +34,7 @@
         <nav class="topics" aria-label="Topics">
             <ol>
                 {% for r in roomViews %}
-                    <li><a href="#{{ r.room.id }}" data-room="{{ r.room.id }}">
+                    <li style="--i:{{ loop.index0 }}"><a href="#{{ r.room.id }}" data-room="{{ r.room.id }}" aria-label="{{ r.room.topic }}, {{ r.room.name }}, {{ r.linkCount == 1 ? '1 link' : r.linkCount ~ ' links' }}">
                         <span class="t-no">{{ r.number }}</span>
                         <span class="t-txt">{{ r.room.topic }}</span>
                     </a></li>
@@ -44,7 +48,7 @@
             {{ include('room-section.html.twig', {r: r}, false) }}
         {% endfor %}
     </div>
-    <dialog id="sheet" aria-labelledby="sheet-title">
+    <dialog id="sheet" aria-labelledby="sheet-title" aria-describedby="sheet-kicker">
         <header class="sheet-head">
             <span class="grip" aria-hidden="true"></span>
             <div class="sheet-title">

@@ -10,8 +10,8 @@
         </a>
     {% endfor %}
     {% for r in roomViews %}
-        <a class="callout" href="#{{ r.room.id }}" data-room="{{ r.room.id }}" aria-label="{{ r.room.topic }} — {{ r.room.name }}">
-            <path class="leader" d="{{ r.ship.leader }}"/>
+        <a class="callout" style="--i:{{ loop.index0 }}" href="#{{ r.room.id }}" data-room="{{ r.room.id }}" aria-label="{{ r.room.topic }}, {{ r.room.name }}, {{ r.linkCount == 1 ? '1 link' : r.linkCount ~ ' links' }}">
+            <path class="leader" pathLength="1" d="{{ r.ship.leader }}"/>
             <g transform="translate({{ r.ship.box[0] }} {{ r.ship.box[1] }})">
                 <rect class="hit" x="-6" y="-6" width="{{ r.ship.hit[0] }}" height="{{ r.ship.hit[1] }}"/>
                 <polygon class="box" points="{{ r.ship.boxPoints }}"/>
