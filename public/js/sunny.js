@@ -113,7 +113,10 @@
             sheet.style.transform = '';
             mark(id, 'on', false);
             mark(id, 'hl', false);
-            if (opener && opener.getClientRects().length) opener.focus({ preventScroll: true });
+            // Keyboard users get focus back on the callout; after a tap, click or pull nothing
+            // stays focused (the dialog would restore focus and show a focus ring).
+            if (!keyboard) document.activeElement?.blur();
+            else if (opener && opener.getClientRects().length) opener.focus({ preventScroll: true });
         };
         if (reduce.matches) finish();
         else {
