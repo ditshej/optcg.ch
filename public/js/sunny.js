@@ -28,9 +28,14 @@
         });
     });
 
-    // Hover and focus on a room or its callout light up both.
+    // Hover and keyboard focus on a room or its callout light up both. Focus after a tap or click
+    // (for example when the sheet closes and focus goes back to the callout) does not.
+    let keyboard = false;
+    document.addEventListener('keydown', () => { keyboard = true; }, true);
+    document.addEventListener('pointerdown', () => { keyboard = false; }, true);
     const hl = (on) => (e) => {
         if (e.type.startsWith('pointer') && e.pointerType !== 'mouse') return;
+        if (on && e.type === 'focusin' && !keyboard) return;
         const el = e.target.closest(triggers);
         if (el) mark(el.dataset.room, 'hl', on);
     };
@@ -106,6 +111,7 @@
             done = true;
             sheet.close();
             mark(id, 'on', false);
+            mark(id, 'hl', false);
             if (opener && opener.getClientRects().length) opener.focus({ preventScroll: true });
         };
         if (reduce.matches) finish();

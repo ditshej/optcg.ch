@@ -21,7 +21,7 @@ final class AddShopLink
         return [
             'id' => 'add-your-shop',
             'title' => 'Add your shop',
-            'url' => 'https://github.com/ditshej/optcg.ch/issues/new',
+            'url' => 'https://github.com/ditshej/optcg.ch/issues/new?template=add-your-shop.yml',
             'description' => 'Sell One Piece Card Game products? Suggest your shop for this room.',
             'language' => 'en',
             'tags' => [],
