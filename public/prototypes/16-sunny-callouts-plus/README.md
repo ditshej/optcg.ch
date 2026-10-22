@@ -24,6 +24,6 @@
 - Topic names stay large and the position on the ship still carries meaning.
 
 **Weaknesses**
-- More drawing means more SVG (about 30 KB of markup per view).
+- More drawing means more SVG (the page is about 58 KB of HTML).
 - On a portrait phone the ship is still about 190 px high; the topic list below is the comfortable way in.
 - Callout positions are fixed per room id.
