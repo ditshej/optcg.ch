@@ -12,6 +12,8 @@
     const triggers = '.stage [data-room], .topics [data-room]';
     let openId = null;
     let opener = null;
+    let view = null; // the current zoom: where the chart sits for the open room, plus the finger pan on top
+    const pan = { x: 0, y: 0 };
 
     const q = (id) => CSS.escape(id);
     const linked = (id) => document.querySelectorAll(
@@ -46,7 +48,19 @@
 
     // Zoom into a room: the visible part of the stage is what the sheet or panel leaves free.
     const shown = () => charts.find((c) => c.getClientRects().length > 0);
-    const zoomTo = (id) => {
+    const applyView = () => {
+        if (!view) return;
+        // Keep at least a strip of the chart in the free area so the ship cannot leave the screen.
+        const lim = (v, vis, size) => Math.min(vis * 0.15, Math.max(vis * 0.85 - size, v));
+        const tx = lim(view.tx + pan.x, view.visW, view.s * view.W) - view.tx;
+        const ty = lim(view.ty + pan.y, view.visH, view.s * view.H) - view.ty;
+        pan.x = tx;
+        pan.y = ty;
+        view.svg.style.transform = `translate(${view.tx + tx}px, ${view.ty + ty}px) scale(${view.s})`;
+    };
+    const zoomTo = (id, keepPan) => {
+        view = null;
+        if (!keepPan) pan.x = pan.y = 0;
         const svg = shown();
         charts.forEach((c) => { if (c !== svg) c.style.transform = ''; });
         if (!svg || reduce.matches) return;
@@ -63,9 +77,13 @@
         const visW = land.matches ? Math.max(240, W - sheet.offsetWidth) : W;
         const visH = land.matches ? H : Math.max(120, Math.min(H, window.innerHeight - sheet.offsetHeight - top));
         const s = Math.max(1.5, Math.min(2.1, (visW * 0.42) / (bb.width * k), (visH * 0.5) / (bb.height * k)));
-        svg.style.transform = `translate(${visW / 2 - s * cx}px, ${visH / 2 - s * cy}px) scale(${s})`;
+        view = { svg, s, W, H, visW, visH, tx: visW / 2 - s * cx, ty: visH / 2 - s * cy };
+        applyView();
     };
-    const zoomOut = () => charts.forEach((c) => { c.style.transform = ''; });
+    const zoomOut = () => {
+        view = null;
+        charts.forEach((c) => { c.style.transform = ''; });
+    };
 
     // Fill the sheet from the room's section (the no-JavaScript copy of the same list).
     const fill = (id) => {
@@ -80,6 +98,7 @@
     const show = (id, from) => {
         if (!$(id)) return;
         if (openId) { // switch rooms without stacking history entries
+            if (from) opener = from;
             mark(openId, 'on', false);
             openId = id;
             fill(id);
@@ -164,7 +183,66 @@
     });
     $('sheet-close').addEventListener('click', requestClose);
     sheet.addEventListener('cancel', (e) => { e.preventDefault(); requestClose(); });
-    sheet.addEventListener('click', (e) => { if (e.target === sheet) requestClose(); }); // backdrop
+
+    // The backdrop is the free part of the chart above the sheet. A drag there pans the chart
+    // (single finger or mouse); a tap (under 8 px of movement) opens the room under the finger,
+    // or closes the sheet when there is none. The page below is inert and gets no events, so the room
+    // is looked up by geometry.
+    const roomAt = (x, y) => {
+        const hit = (el) => {
+            const r = el.getBoundingClientRect();
+            return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+        };
+        const callout = [...stage.querySelectorAll('.callout[data-room]')].find((el) => el.getClientRects().length && hit(el));
+        if (callout) return callout;
+        return [...stage.querySelectorAll('.zone[data-room]')].find((el) => {
+            const svg = el.ownerSVGElement;
+            const edge = el.querySelector('.edge');
+            if (!svg || !edge || !svg.getClientRects().length || !hit(el)) return false;
+            const m = edge.getScreenCTM();
+            return !!m && edge.isPointInFill(new DOMPoint(x, y).matrixTransform(m.inverse()));
+        });
+    };
+    const onBackdrop = (e) => {
+        if (e.target !== sheet) return false;
+        const r = sheet.getBoundingClientRect();
+        return e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+    };
+    let grab = null;
+    sheet.addEventListener('pointerdown', (e) => {
+        if (!openId || e.button > 0 || !e.isPrimary || !onBackdrop(e)) return;
+        grab = { x: e.clientX, y: e.clientY, px: pan.x, py: pan.y, moved: false };
+        sheet.setPointerCapture(e.pointerId);
+    });
+    sheet.addEventListener('pointermove', (e) => {
+        if (!grab) return;
+        const dx = e.clientX - grab.x;
+        const dy = e.clientY - grab.y;
+        if (!grab.moved && Math.hypot(dx, dy) < 8) return;
+        if (!view) return; // nothing zoomed (reduced motion): there is nothing to pan
+        if (!grab.moved) view.svg.style.transition = 'none';
+        grab.moved = true;
+        pan.x = grab.px + dx;
+        pan.y = grab.py + dy;
+        applyView();
+    });
+    sheet.addEventListener('pointerup', (e) => {
+        if (!grab) return;
+        const g = grab;
+        grab = null;
+        if (view) view.svg.style.transition = '';
+        if (g.moved || Math.hypot(e.clientX - g.x, e.clientY - g.y) >= 8) return;
+        const el = roomAt(e.clientX, e.clientY);
+        if (!el) requestClose();
+        else if (el.dataset.room !== openId) { // switch rooms: replace the entry, so Back still closes
+            history.replaceState({ room: el.dataset.room }, '', '#' + el.dataset.room);
+            show(el.dataset.room, controlFor(el));
+        } // a tap on the open room does nothing
+    });
+    sheet.addEventListener('pointercancel', () => {
+        grab = null;
+        if (view) view.svg.style.transition = '';
+    });
 
     // Pull the bottom sheet down by its head to close it; a short pull snaps back.
     const head = sheet.querySelector('.sheet-head');
@@ -196,7 +274,7 @@
     let rz = 0;
     window.addEventListener('resize', () => {
         clearTimeout(rz);
-        rz = setTimeout(() => { if (openId) zoomTo(openId); }, 120);
+        rz = setTimeout(() => { if (openId) zoomTo(openId, true); }, 120);
     });
 
     // Deep link (optcg.ch/#library): open the room once, with a clean history underneath.
