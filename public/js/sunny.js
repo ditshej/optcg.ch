@@ -51,9 +51,10 @@
     const applyView = () => {
         if (!view) return;
         // Keep at least a strip of the chart in the free area so the ship cannot leave the screen.
-        const lim = (v, vis, size) => Math.min(vis * 0.15, Math.max(vis * 0.85 - size, v));
-        const tx = lim(view.tx + pan.x, view.visW, view.s * view.W) - view.tx;
-        const ty = lim(view.ty + pan.y, view.visH, view.s * view.H) - view.ty;
+        // The centred position of the room is always allowed, also for rooms at the edge of the ship.
+        const lim = (base, v, vis, size) => Math.min(Math.max(vis * 0.15, base), Math.max(Math.min(vis * 0.85 - size, base), v));
+        const tx = lim(view.tx, view.tx + pan.x, view.visW, view.s * view.W) - view.tx;
+        const ty = lim(view.ty, view.ty + pan.y, view.visH, view.s * view.H) - view.ty;
         pan.x = tx;
         pan.y = ty;
         view.svg.style.transform = `translate(${view.tx + tx}px, ${view.ty + ty}px) scale(${view.s})`;
