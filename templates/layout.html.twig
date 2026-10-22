@@ -3,39 +3,58 @@
 <head>
     <meta charset="utf-8">
     <script>document.documentElement.classList.add('js');</script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>optcg.ch — a chart of the One Piece Card Game seas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0b2a46">
+    <title>optcg.ch — the Thousand Sunny, a chart of One Piece Card Game links</title>
     <meta name="description" content="Links about the One Piece Card Game, grouped by the rooms of the Thousand Sunny.">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <a class="skip-link" href="#overview">Skip to the overview</a>
-    <header class="site-header">
-        <a class="logo" href="#overview" aria-label="optcg.ch, back to the overview">
-            {{ logoSvg|raw }}
-            <span class="logo-text">optcg.ch</span>
-        </a>
-        <p class="site-tagline">A chart of the One Piece Card Game seas</p>
-    </header>
-    <main id="overview" class="overview">
-        <h1 class="visually-hidden">Rooms of the Thousand Sunny</h1>
-        <div class="folder-grid">
-            {% for r in roomViews %}
-                {{ include('folder.html.twig', {r: r}, false) }}
-            {% endfor %}
-        </div>
-    </main>
+    {{ shipDefs|raw }}
+    <div class="screen">
+        <header class="top">
+            <a class="logo" href="./" aria-label="optcg.ch, back to the chart">
+                {{ logoSvg|raw }}
+                <span class="logo-text">optcg.ch</span>
+            </a>
+            <p class="tagline">Thousand Sunny · One Piece Card Game</p>
+        </header>
+        <main class="stage" id="stage">
+            <h1 class="visually-hidden">Rooms of the Thousand Sunny</h1>
+            <div class="sheetwrap" id="sheetwrap">
+                {{ include('ship-plan.html.twig') }}
+                {{ include('ship-portrait.html.twig') }}
+            </div>
+        </main>
+        <nav class="topics" aria-label="Topics">
+            <ol>
+                {% for r in roomViews %}
+                    <li><a href="#{{ r.room.id }}" data-room="{{ r.room.id }}">
+                        <span class="t-no">{{ r.number }}</span>
+                        <span class="t-txt">{{ r.room.topic }}</span>
+                    </a></li>
+                {% endfor %}
+            </ol>
+        </nav>
+        {{ include('footer.html.twig') }}
+    </div>
     <div class="room-sections">
         {% for r in roomViews %}
             {{ include('room-section.html.twig', {r: r}, false) }}
         {% endfor %}
     </div>
-    {{ include('footer.html.twig') }}
-    <dialog class="folder-overlay" id="folder-overlay">
-        <button type="button" class="overlay-close" id="overlay-close" aria-label="Close this room" autofocus>&times;</button>
-        <div class="overlay-mount" id="overlay-mount"></div>
+    <dialog id="sheet" aria-labelledby="sheet-title">
+        <header class="sheet-head">
+            <span class="grip" aria-hidden="true"></span>
+            <div class="sheet-title">
+                <p class="sheet-kicker" id="sheet-kicker"></p>
+                <h2 id="sheet-title" tabindex="-1"></h2>
+            </div>
+            <button type="button" class="sheet-close" id="sheet-close">Close</button>
+        </header>
+        <div class="sheet-body" id="sheet-body"></div>
     </dialog>
-    <script src="js/overlay.js" defer></script>
+    <script src="js/sunny.js" defer></script>
 </body>
 </html>

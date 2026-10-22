@@ -21,9 +21,14 @@ later revision to 10 rooms.
 | 9 | `aquarium-bar` | Aquarium Bar | Brook | Media |
 | 10 | `helm` | Helm | Jinbe | Community |
 
-The folder on the overview page shows only the **topic** (for example "Shops").
-The overlay for a room shows the room name and the character as a subtitle,
-for example "Galley · Sanji".
+The callout on the ship shows only the **topic** (for example "Shops").
+The sheet (phone) or panel (desktop) for a room shows the character and room
+name as a subtitle, for example "Galley · Sanji". Events sits on the lawn deck.
+
+Each room has a place on the ship drawing: `ShipDrawing` draws it, `ShipLayout`
+holds its hit area and callout position. A new room needs an entry in both
+`ShipLayout::ZONES` and `ShipLayout::CALLOUTS`; the page refuses to render
+without it.
 
 ## Rule: one link, one room
 

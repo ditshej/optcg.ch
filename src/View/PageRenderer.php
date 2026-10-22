@@ -8,7 +8,7 @@ use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * Builds the view model for the overview page and renders it through the
+ * Builds the view model for the Sunny page and renders it through the
  * Twig templates in templates/ (no build step: Twig compiles templates to
  * PHP at request time, cache disabled, for plain-PHP shared hosting).
  */
@@ -37,14 +37,20 @@ final class PageRenderer
      */
     public function render(array $rooms, array $linksByRoomId): string
     {
-        $roomViews = array_map(
-            fn (array $room): array => $this->buildRoomView($room, $linksByRoomId[$room['id']] ?? []),
-            $rooms,
-        );
+        $roomViews = [];
+        foreach (array_values($rooms) as $i => $room) {
+            $roomViews[] = $this->buildRoomView($room, $linksByRoomId[$room['id']] ?? [], sprintf('%02d', $i + 1));
+        }
 
         return $this->twig->render('layout.html.twig', [
             'roomViews' => $roomViews,
             'logoSvg' => (string) file_get_contents(self::LOGO_SVG_FILE),
+            'shipDefs' => ShipDrawing::defs(),
+            'shipDrawing' => ShipDrawing::svg(),
+            'viewPlan' => ShipLayout::VIEW_PLAN,
+            'viewShip' => ShipLayout::VIEW_SHIP,
+            'labelW' => ShipLayout::LABEL_W,
+            'labelH' => ShipLayout::LABEL_H,
         ]);
     }
 
@@ -53,14 +59,13 @@ final class PageRenderer
      * @param array<int, array<string, mixed>> $links
      * @return array<string, mixed>
      */
-    private function buildRoomView(array $room, array $links): array
+    private function buildRoomView(array $room, array $links, string $number): array
     {
         if ($room['id'] === AddShopLink::ROOM_ID) {
             $links[] = AddShopLink::entry();
         }
 
         $color = RoomColors::forRoom((string) $room['id']);
-        $preview = FolderPreview::layout($links);
 
         if (SuggestLinkEntry::appliesTo($room)) {
             $links[] = SuggestLinkEntry::entry($room);
@@ -75,10 +80,8 @@ final class PageRenderer
                 $links,
             ),
             'color' => $color,
-            'preview' => [
-                'large' => array_map($toTile, $preview['large']),
-                'small' => $preview['small'] === null ? null : array_map($toTile, $preview['small']),
-            ],
+            'number' => $number,
+            'ship' => ShipLayout::forRoom((string) $room['id']),
         ];
     }
 }
