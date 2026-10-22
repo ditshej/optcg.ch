@@ -163,7 +163,7 @@ dialog[open] { display: flex; }
 dialog.in { transform: none; }
 @keyframes slide-in { from { opacity: 0; transform: translateY(10px); } }
 dialog.in .link-tile { animation: slide-in .3s var(--ease) calc(.15s + var(--i, 0) * 45ms) backwards; }
-dialog::backdrop { background: rgba(6, 22, 38, .28); }
+dialog::backdrop { background: rgba(6, 22, 38, .28); touch-action: none; }
 .sheet-head { flex: none; position: relative; touch-action: none; display: flex; align-items: flex-start; justify-content: space-between; gap: .75rem; padding: 1rem .9rem .65rem; background: var(--bp); border-bottom: 2px solid var(--line); }
 .grip { position: absolute; top: 8px; left: 50%; width: 44px; height: 4px; margin-left: -22px; background: var(--muted); }
 .sheet-kicker { margin: 0; font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
