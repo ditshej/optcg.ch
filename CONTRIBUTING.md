@@ -44,7 +44,7 @@ ditshej decides what gets merged. There is no right to be listed.
    | `language` | Two-letter code of the target website, for example `en` or `de`. |
    | `icon_source` | `fetched` for the normal case (see below), or `manual` for your own icon. |
    | `icon` (optional) | File name in `public/icons/`. Defaults to `<id>.png` if omitted. |
-   | `tags`, `featured` (optional) | Free-form tags; `featured: true` counts the link towards the folder preview. |
+   | `tags`, `featured` (optional) | Free-form tags; `featured` is kept in the data for later use; the page does not use it yet. |
 
 3. Save the file and open a pull request. GitHub Actions runs the data validator and the test suite on every
    pull request; fix anything it reports.

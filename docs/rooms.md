@@ -1,14 +1,14 @@
 # Rooms of the Thousand Sunny
 
 `optcg.ch` groups all links into 10 rooms of the Thousand Sunny, one per crew
-member. Every room is a folder on the overview page. The data lives in
+member. Every room is a callout on the ship drawing of the overview page. The data lives in
 [`data/rooms.yaml`](../data/rooms.yaml); this page explains the rooms in plain
 language. See `docs/plan.md` (section 4) for the original decision and its
 later revision to 10 rooms.
 
 ## The 10 rooms
 
-| Order | `id` | Room | Character | Topic (label under folder) |
+| Order | `id` | Room | Character | Topic (callout label) |
 |---|---|---|---|---|
 | 1 | `figurehead` | Figurehead | Luffy | Official |
 | 2 | `lawn-deck` | Lawn Deck | Nami | Events |

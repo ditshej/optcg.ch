@@ -97,6 +97,20 @@ button { font: inherit; }
 .zoomed .callout:not(.on) { opacity: .12; transition: opacity .3s; }
 .zoomed .zone:not(.on) { opacity: .35; }
 
+/* ---------- first-visit animation: the ship is drawn, then the callouts follow (about 1.4 s); html.intro is set once per browser ---------- */
+@keyframes appear { from { opacity: 0; } }
+@keyframes trace { from { stroke-dasharray: 1; stroke-dashoffset: 1; } to { stroke-dasharray: 1; stroke-dashoffset: 0; } }
+.intro .draw .hull { animation: trace .7s var(--ease) backwards; }
+.intro .draw .mast { animation: trace .55s var(--ease) .2s backwards; }
+.intro .draw .deck { animation: trace .5s var(--ease) .3s backwards; }
+.intro .draw .part { animation: trace .65s var(--ease) .35s backwards; }
+.intro .draw .thin { animation: trace .55s var(--ease) .5s backwards; }
+.intro .draw .rig { animation: trace .5s var(--ease) .55s backwards; }
+.intro .draw .furn, .intro .draw .rib, .intro .draw .g-base text { animation: appear .4s ease .7s backwards; }
+.intro .callout { animation: appear .25s ease calc(.75s + var(--i, 0) * 30ms) backwards; }
+.intro .callout .leader { animation: trace .4s var(--ease) calc(.75s + var(--i, 0) * 30ms) backwards; }
+.intro .topics li { animation: appear .25s ease calc(.75s + var(--i, 0) * 30ms) backwards; }
+
 /* ---------- callouts under the ship (portrait): 2 columns x 5 rows ---------- */
 .topics { flex: none; }
 .topics ol { list-style: none; margin: 0 auto; padding: .6rem .75rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(5, minmax(44px, 56px)); gap: 8px; max-width: 720px; }
@@ -147,6 +161,8 @@ dialog {
 }
 dialog[open] { display: flex; }
 dialog.in { transform: none; }
+@keyframes slide-in { from { opacity: 0; transform: translateY(10px); } }
+dialog.in .link-tile { animation: slide-in .3s var(--ease) calc(.15s + var(--i, 0) * 45ms) backwards; }
 dialog::backdrop { background: rgba(6, 22, 38, .28); }
 .sheet-head { flex: none; position: relative; display: flex; align-items: flex-start; justify-content: space-between; gap: .75rem; padding: 1rem .9rem .65rem; background: var(--bp); border-bottom: 2px solid var(--line); }
 .grip { position: absolute; top: 8px; left: 50%; width: 44px; height: 4px; margin-left: -22px; background: var(--muted); }

@@ -2,6 +2,25 @@
 
 Landing page with links about the One Piece Card Game, grouped by room (see `docs/plan.md`).
 
+## How the page works
+
+The page is the Thousand Sunny drawn as a blueprint (own SVG, no official images). Each of the ten
+rooms has a callout on the ship (a numbered topic list under the ship on portrait phones). Tapping
+a callout zooms into the room and opens its links in a bottom sheet (portrait) or a side panel
+(landscape). The page itself never scrolls; only the link list in the sheet does.
+
+- **Without JavaScript** every callout is a plain link to the room's section further down the page,
+  so all links stay reachable.
+- **Keyboard:** `Tab` moves through the callouts, `Enter` or `Space` opens one, `Esc` or the Back
+  button closes it. Focus stays inside the open sheet and returns to the callout afterwards.
+  Callouts are announced with topic, room and number of links.
+- **Animation:** on the first visit the ship and its callout lines draw themselves in (about 1.4 s).
+  A flag in `localStorage` (no cookie) skips it on later visits. With `prefers-reduced-motion` there
+  is no animation at all.
+- **Code:** `src/View/ShipDrawing.php` (drawing), `src/View/ShipLayout.php` (room zones and callout
+  positions), `templates/` and `public/js/sunny.js`. Room list: [docs/rooms.md](docs/rooms.md).
+  Link data: `data/links/<room-id>.yaml`, for example `lawn-deck.yaml` for events.
+
 ## Setup
 
 ```sh
