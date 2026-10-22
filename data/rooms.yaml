@@ -27,8 +27,8 @@ rooms:
     description: "Official One Piece Card Game sources: the game website, Bandai TCG+ and official announcements."
     order: 1
 
-  - id: navigation-room
-    name: Navigation Room
+  - id: lawn-deck
+    name: Lawn Deck
     topic: Events
     character: Nami
     description: "Tournaments and events: egmanevents, tournament calendars and local game nights."

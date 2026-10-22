@@ -11,7 +11,7 @@ later revision to 10 rooms.
 | Order | `id` | Room | Character | Topic (label under folder) |
 |---|---|---|---|---|
 | 1 | `figurehead` | Figurehead | Luffy | Official |
-| 2 | `navigation-room` | Navigation Room | Nami | Events |
+| 2 | `lawn-deck` | Lawn Deck | Nami | Events |
 | 3 | `crows-nest` | Crow's Nest | Zoro | Training |
 | 4 | `library` | Library | Robin | Rules & Cards |
 | 5 | `usopp-factory` | Usopp Factory | Usopp | Tools |

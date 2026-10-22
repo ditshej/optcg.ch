@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 final class PageRendererTest extends TestCase
 {
     private const ROOM_IDS = [
-        'figurehead', 'navigation-room', 'crows-nest', 'library',
+        'figurehead', 'lawn-deck', 'crows-nest', 'library',
         'usopp-factory', 'galley', 'sick-bay', 'soldier-dock',
         'aquarium-bar', 'helm',
     ];
