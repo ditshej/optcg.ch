@@ -65,9 +65,10 @@
     // Fill the sheet from the room's section (the no-JavaScript copy of the same list).
     const fill = (id) => {
         const section = $(id);
-        $('sheet-kicker').textContent = `${section.dataset.number} · ${section.dataset.sub}`;
+        $('sheet-kicker').textContent = `${section.dataset.number} · ${section.dataset.sub} · ${section.dataset.count}`;
         $('sheet-title').textContent = section.dataset.topic;
         body.replaceChildren(...[...section.querySelector('.room-section-inner').children].map((n) => n.cloneNode(true)));
+        body.querySelectorAll('.link-tile').forEach((li, i) => li.style.setProperty('--i', Math.min(i, 10))); // staggered entrance
         body.scrollTop = 0;
     };
 
@@ -139,6 +140,17 @@
         if (!el) return;
         e.preventDefault();
         open(el.dataset.room, controlFor(el));
+    });
+    // Keep Tab inside the open sheet: the last control wraps to the first and the other way round.
+    sheet.addEventListener('keydown', (e) => {
+        if (e.key !== 'Tab') return;
+        const items = [...sheet.querySelectorAll('a[href], button')].filter((el) => el.getClientRects().length > 0);
+        if (!items.length) return;
+        const first = items[0];
+        const last = items[items.length - 1];
+        const at = document.activeElement;
+        if (e.shiftKey && (at === first || at === $('sheet-title'))) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && at === last) { e.preventDefault(); first.focus(); }
     });
     $('sheet-close').addEventListener('click', requestClose);
     sheet.addEventListener('cancel', (e) => { e.preventDefault(); requestClose(); });

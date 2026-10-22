@@ -6,7 +6,7 @@
  #}
 {% set roomId = r.room.id %}
 {% set headingId = roomId ~ '-heading' %}
-<section id="{{ roomId }}" class="room-section" style="--room-color: {{ r.color }}" aria-labelledby="{{ headingId }}" data-room="{{ roomId }}" data-number="{{ r.number }}" data-topic="{{ r.room.topic }}" data-sub="{{ r.room.name }} · {{ r.room.character }}">
+<section id="{{ roomId }}" class="room-section" style="--room-color: {{ r.color }}" aria-labelledby="{{ headingId }}" data-room="{{ roomId }}" data-number="{{ r.number }}" data-topic="{{ r.room.topic }}" data-count="{{ r.linkCount == 1 ? '1 link' : r.linkCount ~ ' links' }}" data-sub="{{ r.room.name }} · {{ r.room.character }}">
     <div class="room-section-inner">
         <a class="back-link" href="./">&larr; Back to the chart</a>
         <h2 id="{{ headingId }}">{{ r.room.name }} <span class="room-character">· {{ r.room.character }}</span></h2>
