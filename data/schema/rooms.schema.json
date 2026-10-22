@@ -15,7 +15,7 @@
     "definitions": {
         "room": {
             "type": "object",
-            "required": ["id", "name", "topic", "character", "description", "order"],
+            "required": ["id", "name", "topic", "description", "order"],
             "additionalProperties": false,
             "properties": {
                 "id": {
@@ -34,12 +34,6 @@
                     "minLength": 1,
                     "maxLength": 40,
                     "description": "Label under the folder on the overview."
-                },
-                "character": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 60,
-                    "description": "Character tied to the room, shown in the overlay subtitle."
                 },
                 "description": {
                     "type": "string",

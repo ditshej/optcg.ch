@@ -28,9 +28,14 @@
         });
     });
 
-    // Hover and focus on a room or its callout light up both.
+    // Hover and keyboard focus on a room or its callout light up both. Focus after a tap or click
+    // (for example when the sheet closes and focus goes back to the callout) does not.
+    let keyboard = false;
+    document.addEventListener('keydown', () => { keyboard = true; }, true);
+    document.addEventListener('pointerdown', () => { keyboard = false; }, true);
     const hl = (on) => (e) => {
         if (e.type.startsWith('pointer') && e.pointerType !== 'mouse') return;
+        if (on && e.type === 'focusin' && !keyboard) return;
         const el = e.target.closest(triggers);
         if (el) mark(el.dataset.room, 'hl', on);
     };
@@ -105,8 +110,13 @@
             if (done) return;
             done = true;
             sheet.close();
+            sheet.style.transform = '';
             mark(id, 'on', false);
-            if (opener && opener.getClientRects().length) opener.focus({ preventScroll: true });
+            mark(id, 'hl', false);
+            // Keyboard users get focus back on the callout; after a tap, click or pull nothing
+            // stays focused (the dialog would restore focus and show a focus ring).
+            if (!keyboard) document.activeElement?.blur();
+            else if (opener && opener.getClientRects().length) opener.focus({ preventScroll: true });
         };
         if (reduce.matches) finish();
         else {
@@ -155,6 +165,32 @@
     $('sheet-close').addEventListener('click', requestClose);
     sheet.addEventListener('cancel', (e) => { e.preventDefault(); requestClose(); });
     sheet.addEventListener('click', (e) => { if (e.target === sheet) requestClose(); }); // backdrop
+
+    // Pull the bottom sheet down by its head to close it; a short pull snaps back.
+    const head = sheet.querySelector('.sheet-head');
+    let drag = null;
+    head.addEventListener('pointerdown', (e) => {
+        if (land.matches || !openId || e.button > 0 || e.target.closest('button')) return;
+        drag = { y: e.clientY, t: performance.now(), dy: 0 };
+        head.setPointerCapture(e.pointerId);
+        sheet.style.transition = 'none';
+    });
+    head.addEventListener('pointermove', (e) => {
+        if (!drag) return;
+        drag.dy = Math.max(0, e.clientY - drag.y);
+        sheet.style.transform = `translateY(${drag.dy}px)`;
+    });
+    const endDrag = () => {
+        if (!drag) return;
+        const fast = drag.dy / Math.max(1, performance.now() - drag.t) > 0.5;
+        const away = drag.dy > sheet.offsetHeight / 4 || (fast && drag.dy > 30);
+        drag = null;
+        sheet.style.transition = '';
+        sheet.style.transform = away ? 'translateY(100%)' : '';
+        if (away) requestClose();
+    };
+    head.addEventListener('pointerup', endDrag);
+    head.addEventListener('pointercancel', endDrag);
 
     // Turning the device: sheet and side panel swap, the zoom is recomputed.
     let rz = 0;

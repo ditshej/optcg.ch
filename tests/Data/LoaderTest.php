@@ -18,13 +18,11 @@ final class LoaderTest extends DataFixtureTestCase
               - id: second
                 name: Second
                 topic: Topic
-                character: Char
                 description: "Second room."
                 order: 2
               - id: first
                 name: First
                 topic: Topic
-                character: Char
                 description: "First room."
                 order: 1
             YAML);
@@ -41,7 +39,6 @@ final class LoaderTest extends DataFixtureTestCase
               - id: room-a
                 name: Room A
                 topic: Topic A
-                character: Char A
                 description: "Room A description."
                 order: 1
             YAML);

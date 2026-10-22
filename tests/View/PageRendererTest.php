@@ -114,7 +114,7 @@ final class PageRendererTest extends TestCase
     {
         $html = $this->render($this->rooms(), []);
 
-        self::assertStringContainsString('https://github.com/ditshej/optcg.ch/issues/new', $html);
+        self::assertStringContainsString('https://github.com/ditshej/optcg.ch/issues/new?template=add-your-shop.yml', $html);
         self::assertStringContainsString('Add your shop', $html);
     }
 
@@ -250,7 +250,6 @@ final class PageRendererTest extends TestCase
                 'id' => $id,
                 'name' => ucwords(str_replace('-', ' ', $id)),
                 'topic' => 'Topic',
-                'character' => 'Character',
                 'description' => 'Description.',
                 'order' => $order + 1,
             ];
