@@ -1,4 +1,4 @@
-# The 10 rooms of the Thousand Sunny, one per crew member.
+# The 10 rooms of the Thousand Sunny.
 # See docs/plan.md (section 4) and docs/rooms.md for the full background.
 #
 # How to change a value:
@@ -13,9 +13,7 @@
 # Fields:
 #   id          short, unique, stable identifier
 #   name        room name, shown as the overlay title
-#   topic       label under the folder on the overview; shown with `character`
-#               as the overlay subtitle (for example "Galley · Sanji")
-#   character   character tied to the room, shown in the overlay subtitle
+#   topic       label under the folder on the overview
 #   description one sentence, max 120 characters, short room summary
 #   order       position in the overview grid, 1 = first
 
@@ -23,69 +21,59 @@ rooms:
   - id: figurehead
     name: Figurehead
     topic: Official
-    character: Luffy
     description: "Official One Piece Card Game sources: the game website, Bandai TCG+ and official announcements."
     order: 1
 
   - id: lawn-deck
     name: Lawn Deck
     topic: Events
-    character: Nami
     description: "Tournaments and events: egmanevents, tournament calendars and local game nights."
     order: 2
 
   - id: crows-nest
     name: Crow's Nest
     topic: Training
-    character: Zoro
     description: "Train your game: simulators and tournament meta lists."
     order: 3
 
   - id: library
     name: Library
     topic: Rules & Cards
-    character: Robin
     description: "Rules, card databases and other reference sites for the One Piece Card Game."
     order: 4
 
   - id: usopp-factory
     name: Usopp Factory
     topic: Tools
-    character: Usopp
     description: "Community tools: prizing.optcg.ch, 3v3 and Two Moons."
     order: 5
 
   - id: galley
     name: Galley
     topic: Shops
-    character: Sanji
     description: "Recommended shops for cards and supplies, plus a link to suggest your own shop."
     order: 6
 
   - id: sick-bay
     name: Sick Bay
     topic: New Players
-    character: Chopper
     description: "First steps into the One Piece Card Game: official rules, a play guide and a guided tutorial."
     order: 7
 
   - id: soldier-dock
     name: Soldier Dock
     topic: Deckbuilding
-    character: Franky
     description: "Build your deck: online deck builders for the One Piece Card Game."
     order: 8
 
   - id: aquarium-bar
     name: Aquarium Bar
     topic: Media
-    character: Brook
     description: "Videos and audio: YouTube channels, Twitch streams and podcasts."
     order: 9
 
   - id: helm
     name: Helm
     topic: Community
-    character: Jinbe
     description: "Community spaces: social media profiles, Discord servers and player groups."
     order: 10

@@ -68,7 +68,7 @@ Task 1 reviews the exact English texts (labels, descriptions).
 
 ## 5. Data model (YAML)
 
-- `data/rooms.yaml`: rooms with `id`, `name`, `topic` (label under the folder), `character`, `description`, `order`. All texts in English.
+- `data/rooms.yaml`: rooms with `id`, `name`, `topic` (label under the folder), `description` (the `character` field was removed later), `order`. All texts in English.
 - `data/links/<room-id>.yaml`: one file per room. This reduces conflicts between pull requests.
 - Fields per link:
   - `id` (short, unique, for example `bandai-tcg-plus`)

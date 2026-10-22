@@ -250,7 +250,6 @@ final class PageRendererTest extends TestCase
                 'id' => $id,
                 'name' => ucwords(str_replace('-', ' ', $id)),
                 'topic' => 'Topic',
-                'character' => 'Character',
                 'description' => 'Description.',
                 'order' => $order + 1,
             ];

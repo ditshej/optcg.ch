@@ -1,29 +1,29 @@
 # Rooms of the Thousand Sunny
 
-`optcg.ch` groups all links into 10 rooms of the Thousand Sunny, one per crew
-member. Every room is a callout on the ship drawing of the overview page. The data lives in
+`optcg.ch` groups all links into 10 rooms of the Thousand Sunny. Every room is
+a callout on the ship drawing of the overview page. The data lives in
 [`data/rooms.yaml`](../data/rooms.yaml); this page explains the rooms in plain
 language. See `docs/plan.md` (section 4) for the original decision and its
 later revision to 10 rooms.
 
 ## The 10 rooms
 
-| Order | `id` | Room | Character | Topic (callout label) |
-|---|---|---|---|---|
-| 1 | `figurehead` | Figurehead | Luffy | Official |
-| 2 | `lawn-deck` | Lawn Deck | Nami | Events |
-| 3 | `crows-nest` | Crow's Nest | Zoro | Training |
-| 4 | `library` | Library | Robin | Rules & Cards |
-| 5 | `usopp-factory` | Usopp Factory | Usopp | Tools |
-| 6 | `galley` | Galley | Sanji | Shops |
-| 7 | `sick-bay` | Sick Bay | Chopper | New Players |
-| 8 | `soldier-dock` | Soldier Dock | Franky | Deckbuilding |
-| 9 | `aquarium-bar` | Aquarium Bar | Brook | Media |
-| 10 | `helm` | Helm | Jinbe | Community |
+| Order | `id` | Room | Topic (callout label) |
+|---|---|---|---|
+| 1 | `figurehead` | Figurehead | Official |
+| 2 | `lawn-deck` | Lawn Deck | Events |
+| 3 | `crows-nest` | Crow's Nest | Training |
+| 4 | `library` | Library | Rules & Cards |
+| 5 | `usopp-factory` | Usopp Factory | Tools |
+| 6 | `galley` | Galley | Shops |
+| 7 | `sick-bay` | Sick Bay | New Players |
+| 8 | `soldier-dock` | Soldier Dock | Deckbuilding |
+| 9 | `aquarium-bar` | Aquarium Bar | Media |
+| 10 | `helm` | Helm | Community |
 
 The callout on the ship shows only the **topic** (for example "Shops").
-The sheet (phone) or panel (desktop) for a room shows the character and room
-name as a subtitle, for example "Galley · Sanji". Events sits on the lawn deck.
+The sheet (phone) or panel (desktop) for a room shows the room name as a
+subtitle, for example "Galley". Events sits on the lawn deck.
 
 Each room has a place on the ship drawing: `ShipDrawing` draws it, `ShipLayout`
 holds its hit area and callout position. A new room needs an entry in both
