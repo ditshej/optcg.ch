@@ -1,0 +1,13 @@
+{#
+ # Portrait: the ship alone with a number in each room; the matching callouts
+ # (the .topics list in layout.html.twig) stand below it.
+ #}
+<svg class="chart ship" viewBox="{{ viewShip }}" preserveAspectRatio="xMidYMid meet" role="group" aria-label="The Thousand Sunny with ten numbered rooms" focusable="false">
+    {{ shipDrawing|raw }}
+    {% for r in roomViews %}
+        <a class="zone" href="#{{ r.room.id }}" data-room="{{ r.room.id }}" tabindex="-1" aria-hidden="true">
+            <polygon class="fill" points="{{ r.ship.zone }}"/><polygon class="hatch" points="{{ r.ship.zone }}" fill="url(#hatch)"/><polygon class="edge" points="{{ r.ship.zone }}"/>
+            <g class="badge"><circle cx="{{ r.ship.badge[0] }}" cy="{{ r.ship.badge[1] }}" r="21"/><text x="{{ r.ship.badge[0] }}" y="{{ r.ship.badge[1] }}">{{ r.number }}</text></g>
+        </a>
+    {% endfor %}
+</svg>

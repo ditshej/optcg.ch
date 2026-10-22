@@ -31,7 +31,7 @@ body:
       description: Which room of the Thousand Sunny does this link belong to?
       options:
         - "Figurehead (Official)"
-        - "Navigation Room (Events)"
+        - "Lawn Deck (Events)"
         - "Crow's Nest (Training)"
         - "Library (Rules & Cards)"
         - "Usopp Factory (Tools)"

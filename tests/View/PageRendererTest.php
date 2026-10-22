@@ -13,16 +13,19 @@ use PHPUnit\Framework\TestCase;
 final class PageRendererTest extends TestCase
 {
     private const ROOM_IDS = [
-        'figurehead', 'navigation-room', 'crows-nest', 'library',
+        'figurehead', 'lawn-deck', 'crows-nest', 'library',
         'usopp-factory', 'galley', 'sick-bay', 'soldier-dock',
         'aquarium-bar', 'helm',
     ];
 
-    public function testRendersAllTenRoomsAsFoldersAndSections(): void
+    public function testRendersAllTenRoomsAsCalloutsZonesAndSections(): void
     {
         $html = $this->render($this->rooms(), []);
 
-        self::assertSame(10, substr_count($html, 'class="folder"'));
+        // Landscape callouts (plan) and room zones in both drawings.
+        self::assertSame(10, substr_count($html, 'class="callout"'));
+        self::assertSame(20, substr_count($html, 'class="zone"'));
+        self::assertSame(10, substr_count($html, '<li><a href="#'));
 
         foreach (self::ROOM_IDS as $id) {
             self::assertStringContainsString('id="' . $id . '"', $html);
@@ -95,14 +98,52 @@ final class PageRendererTest extends TestCase
         self::assertStringContainsString('Add your shop', $html);
     }
 
-    public function testRendersTheFolderOverlayDialogAndEnhancementScript(): void
+    public function testRendersTheSheetDialogAndEnhancementScript(): void
     {
         $html = $this->render($this->rooms(), []);
 
-        self::assertStringContainsString('<dialog class="folder-overlay" id="folder-overlay">', $html);
-        self::assertStringContainsString('id="overlay-close"', $html);
-        self::assertStringContainsString('id="overlay-mount"', $html);
-        self::assertStringContainsString('<script src="js/overlay.js" defer></script>', $html);
+        self::assertStringContainsString('<dialog id="sheet"', $html);
+        self::assertStringContainsString('id="sheet-close"', $html);
+        self::assertStringContainsString('<script src="js/sunny.js" defer></script>', $html);
+    }
+
+    public function testShipHasTwoMastsAndNoPaddleWheels(): void
+    {
+        $html = $this->render($this->rooms(), []);
+
+        // One drawing per view (plan and portrait), two mast paths in each.
+        self::assertSame(4, substr_count($html, 'class="mast"'));
+        self::assertStringNotContainsString('wheel', $html);
+    }
+
+    public function testNoExternalRequestsFromTheMarkup(): void
+    {
+        $html = $this->render($this->rooms(), []);
+
+        self::assertDoesNotMatchRegularExpression('/(src|href)="https?:\/\/[^"]*"(?![^>]*target="_blank")/', $html);
+        self::assertStringNotContainsString('<script src="http', $html);
+        self::assertStringNotContainsString('@import', $html);
+    }
+
+    public function testCalloutsShowTheTopicNotTheRoomName(): void
+    {
+        $rooms = $this->rooms();
+        $rooms[5]['topic'] = 'Shops';
+
+        $html = $this->render($rooms, []);
+
+        self::assertStringContainsString('>SHOPS</text>', $html);
+    }
+
+    public function testRoomWithoutAPlaceOnTheShipIsRejected(): void
+    {
+        $rooms = $this->rooms();
+        $rooms[0]['id'] = 'brig';
+
+        $this->expectException(\LogicException::class);
+        $this->expectExceptionMessage('brig');
+
+        $this->render($rooms, []);
     }
 
     public function testLinkDescriptionIsShownBesideTheTile(): void
@@ -148,27 +189,13 @@ final class PageRendererTest extends TestCase
         self::assertStringNotContainsString('<span class="link-description"></span>', $html);
     }
 
-    public function testSuggestLinkTileIsLastAndNeverInTheFolderPreview(): void
+    public function testSuggestLinkTileIsLastInTheRoom(): void
     {
         $links = ['crows-nest' => [$this->link('one-link', 'One Link', 'https://example.com/one')]];
 
-        $html = $this->render($this->rooms(), $links);
-        $section = $this->roomSection($html, 'crows-nest');
+        $section = $this->roomSection($this->render($this->rooms(), $links), 'crows-nest');
 
         self::assertMatchesRegularExpression('/One Link.*Suggest a link/s', $section);
-        self::assertStringNotContainsString('Suggest a link', $this->folderTile($html, 'crows-nest'));
-    }
-
-    public function testMoreThanFourLinksCollapseTheFourthFolderSlot(): void
-    {
-        $links = ['crows-nest' => array_map(
-            fn (int $i): array => $this->link("link-{$i}", "Link {$i}", "https://example.com/{$i}"),
-            range(1, 5),
-        )];
-
-        $html = $this->render($this->rooms(), $links);
-
-        self::assertStringContainsString('folder-slot-group', $html);
     }
 
     private function roomSection(string $html, string $roomId): string
@@ -178,17 +205,6 @@ final class PageRendererTest extends TestCase
             $html,
         );
         preg_match('/<section id="' . preg_quote($roomId, '/') . '".*?<\/section>/s', $html, $matches);
-
-        return $matches[0];
-    }
-
-    private function folderTile(string $html, string $roomId): string
-    {
-        self::assertMatchesRegularExpression(
-            '/<a class="folder" href="#' . preg_quote($roomId, '/') . '".*?<\/a>/s',
-            $html,
-        );
-        preg_match('/<a class="folder" href="#' . preg_quote($roomId, '/') . '".*?<\/a>/s', $html, $matches);
 
         return $matches[0];
     }

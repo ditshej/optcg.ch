@@ -1,0 +1,22 @@
+{#
+ # Landscape: the whole ship with all ten callouts around it, one SVG.
+ # Hidden in portrait by CSS (see ship-portrait.html.twig).
+ #}
+<svg class="chart plan" viewBox="{{ viewPlan }}" preserveAspectRatio="xMidYMid meet" role="group" aria-label="The Thousand Sunny with ten labelled rooms" focusable="false">
+    {{ shipDrawing|raw }}
+    {% for r in roomViews %}
+        <a class="zone" href="#{{ r.room.id }}" data-room="{{ r.room.id }}" tabindex="-1" aria-hidden="true">
+            <polygon class="fill" points="{{ r.ship.zone }}"/><polygon class="hatch" points="{{ r.ship.zone }}" fill="url(#hatch)"/><polygon class="edge" points="{{ r.ship.zone }}"/>
+        </a>
+    {% endfor %}
+    {% for r in roomViews %}
+        <a class="callout" href="#{{ r.room.id }}" data-room="{{ r.room.id }}" aria-label="{{ r.room.topic }} — {{ r.room.name }}">
+            <path class="leader" d="{{ r.ship.leader }}"/>
+            <g transform="translate({{ r.ship.box[0] }} {{ r.ship.box[1] }})">
+                <rect class="hit" x="-6" y="-6" width="{{ r.ship.hit[0] }}" height="{{ r.ship.hit[1] }}"/>
+                <polygon class="box" points="{{ r.ship.boxPoints }}"/>
+                <text class="ct" x="12" y="{{ labelH / 2 }}">{{ r.room.topic|upper }}</text>
+            </g>
+        </a>
+    {% endfor %}
+</svg>

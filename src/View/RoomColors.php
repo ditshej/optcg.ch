@@ -13,7 +13,7 @@ final class RoomColors
 {
     private const COLORS = [
         'figurehead' => '#8b2a1f',
-        'navigation-room' => '#1f5c7a',
+        'lawn-deck' => '#1f5c7a',
         'crows-nest' => '#2f6b3a',
         'library' => '#5b3a73',
         'usopp-factory' => '#9c5518',
