@@ -10,6 +10,7 @@ use Optcg\Data\Loader;
 use Optcg\Icons\CurlHttpFetcher;
 use Optcg\Icons\IconSelector;
 use Optcg\Icons\IconWriter;
+use Optcg\Icons\YouTubeChannelIcon;
 
 /**
  * Fetches a local icon for every link that does not have one yet (see
@@ -22,7 +23,9 @@ use Optcg\Icons\IconWriter;
 $rootDir = dirname(__DIR__);
 $paths = new DataPaths($rootDir);
 $loader = new Loader($paths);
-$selector = new IconSelector(new CurlHttpFetcher());
+$fetcher = new CurlHttpFetcher();
+$channelIcons = new YouTubeChannelIcon($fetcher);
+$selector = new IconSelector($fetcher);
 $writer = new IconWriter();
 
 if (!is_dir($paths->iconsDir())) {
@@ -65,7 +68,8 @@ foreach ($loader->discoverLinkFileRoomIds() as $roomId) {
         }
 
         fwrite(STDERR, "Fetching icon for {$id} ({$url}) ...\n");
-        $selected = $selector->selectBestIcon($url);
+        // YouTube channels: the channel image, not the YouTube logo. Falls back to the normal selection.
+        $selected = $channelIcons->select($url) ?? $selector->selectBestIcon($url);
 
         if ($selected === null) {
             $overview[] = [$roomId, $id, $title, 'fallback tile', 'no usable icon found (none, or smaller than 64x64)'];
