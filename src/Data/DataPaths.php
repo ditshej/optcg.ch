@@ -42,7 +42,7 @@ final class DataPaths
 
     public function iconsDir(): string
     {
-        return $this->rootDir . '/public/icons';
+        return $this->rootDir . '/public/link-icons';
     }
 
     /**

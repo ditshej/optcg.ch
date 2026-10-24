@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Builds a throwaway, self-contained data directory per test (its own
- * data/rooms.yaml, data/links/*.yaml, data/schema/*.json and public/icons/)
+ * data/rooms.yaml, data/links/*.yaml, data/schema/*.json and public/link-icons/)
  * so Validator/Loader tests do not depend on, or affect, the real data set.
  */
 abstract class DataFixtureTestCase extends TestCase
@@ -23,7 +23,7 @@ abstract class DataFixtureTestCase extends TestCase
         $this->root = sys_get_temp_dir() . '/optcg-data-test-' . bin2hex(random_bytes(8));
         mkdir($this->root . '/data/schema', recursive: true);
         mkdir($this->root . '/data/links', recursive: true);
-        mkdir($this->root . '/public/icons', recursive: true);
+        mkdir($this->root . '/public/link-icons', recursive: true);
 
         $schemaDir = dirname(__DIR__, 2) . '/data/schema';
         copy($schemaDir . '/rooms.schema.json', $this->root . '/data/schema/rooms.schema.json');
@@ -54,13 +54,13 @@ abstract class DataFixtureTestCase extends TestCase
     protected function writeSquarePng(string $filename, int $size = 32): void
     {
         $image = imagecreatetruecolor($size, $size);
-        imagepng($image, $this->root . '/public/icons/' . $filename);
+        imagepng($image, $this->root . '/public/link-icons/' . $filename);
     }
 
     protected function writeNonSquarePng(string $filename): void
     {
         $image = imagecreatetruecolor(64, 32);
-        imagepng($image, $this->root . '/public/icons/' . $filename);
+        imagepng($image, $this->root . '/public/link-icons/' . $filename);
     }
 
     protected function writeOversizedPng(string $filename, int $minBytes): void
@@ -73,9 +73,9 @@ abstract class DataFixtureTestCase extends TestCase
                 imagesetpixel($image, $x, $y, imagecolorallocate($image, random_int(0, 255), random_int(0, 255), random_int(0, 255)));
             }
         }
-        imagepng($image, $this->root . '/public/icons/' . $filename, 0);
+        imagepng($image, $this->root . '/public/link-icons/' . $filename, 0);
 
-        if (filesize($this->root . '/public/icons/' . $filename) < $minBytes) {
+        if (filesize($this->root . '/public/link-icons/' . $filename) < $minBytes) {
             self::fail('Test setup problem: generated icon is smaller than expected, adjust writeOversizedPng().');
         }
     }

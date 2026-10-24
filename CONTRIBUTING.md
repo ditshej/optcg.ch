@@ -43,7 +43,7 @@ ditshej decides what gets merged. There is no right to be listed.
    | `description` | One sentence (max 200 characters). |
    | `language` | Two-letter code of the target website, for example `en` or `de`. |
    | `icon_source` | `fetched` for the normal case (see below), or `manual` for your own icon. |
-   | `icon` (optional) | File name in `public/icons/`. Defaults to `<id>.png` if omitted. |
+   | `icon` (optional) | File name in `public/link-icons/`. Defaults to `<id>.png` if omitted. |
    | `tags`, `featured` (optional) | Free-form tags; `featured` is kept in the data for later use; the page does not use it yet. |
 
 3. Save the file and open a pull request. GitHub Actions runs the data validator and the test suite on every
@@ -66,7 +66,7 @@ See `docs/plan.md` (section 5) and `data/schema/links.schema.json` for the full 
   - at least 180×180 px,
   - something you have the right to use (your own artwork, or the target site's own icon/logo with permission).
   Set `icon_source: manual` so the automatic fetch script never overwrites it, and add the file under
-  `public/icons/<id>.png` (or `.svg`/`.webp`) in the same pull request.
+  `public/link-icons/<id>.png` (or `.svg`/`.webp`) in the same pull request.
 
 ## Suggesting a shop
 

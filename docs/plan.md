@@ -76,7 +76,7 @@ Task 1 reviews the exact English texts (labels, descriptions).
   - `url`
   - `description`
   - `language` (for example `de`, `en`)
-  - optional `icon` (file name in `public/icons/`, default `<id>.png`)
+  - optional `icon` (file name in `public/link-icons/`, default `<id>.png`)
   - `icon_source` (`fetched` or `manual`)
   - `tags`
   - `featured`
@@ -93,7 +93,7 @@ Task 1 reviews the exact English texts (labels, descriptions).
 - `bin/fetch-icons.php` looks for the best icon of the target website for every link without an icon file:
   `apple-touch-icon`, then the web app manifest, then `<link rel="icon">`, last `/favicon.ico`.
   The largest square image wins.
-- The script stores the icon once as `public/icons/<link-id>.png` (or `.svg`), scaled to 180×180 px.
+- The script stores the icon once as `public/link-icons/<link-id>.png` (or `.svg`), scaled to 180×180 px.
   The page never loads anything from third-party servers.
 - Flow: the maintainer or a contributor runs the script locally, or a GitHub Actions workflow
   (manual or after merge) opens a pull request with the new icons. No script runs on the live server.

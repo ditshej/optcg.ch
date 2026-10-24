@@ -88,7 +88,7 @@ final class PageRendererTest extends TestCase
         $links = ['usopp-factory' => [$this->link('prizing', 'TCG Prizing', 'https://prizing.optcg.ch')]];
         $html = $this->render($this->rooms(), $links, static fn (string $f): bool => $f === 'prizing.png');
 
-        self::assertStringContainsString('<img src="icons/prizing.png"', $html);
+        self::assertStringContainsString('<img src="link-icons/prizing.png"', $html);
     }
 
     public function testLinkWithoutAnIconFileFallsBackToTheInitialLetterTile(): void

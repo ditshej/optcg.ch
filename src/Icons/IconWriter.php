@@ -6,7 +6,7 @@ namespace Optcg\Icons;
 
 /**
  * Scales a SelectedIcon to the stored size (docs/plan.md section 5: 180x180
- * px) and writes it to public/icons/. Candidates are already square (see
+ * px) and writes it to public/link-icons/. Candidates are already square (see
  * IconSelector), so this is a plain resample, no cropping needed.
  */
 final class IconWriter

@@ -51,7 +51,7 @@
                 "icon": {
                     "type": "string",
                     "pattern": "^[a-zA-Z0-9_-]+\\.(png|svg|webp)$",
-                    "description": "Optional file name in public/icons/. Defaults to <id>.png when omitted. Must be square, PNG/SVG/WebP, within the maximum file size."
+                    "description": "Optional file name in public/link-icons/. Defaults to <id>.png when omitted. Must be square, PNG/SVG/WebP, within the maximum file size."
                 },
                 "icon_source": {
                     "type": "string",

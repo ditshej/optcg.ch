@@ -46,12 +46,12 @@ composer fetch-icons
 Runs `bin/fetch-icons.php`: for every link in `data/links/*.yaml` that has no icon file yet, it
 looks at the target website for the best icon (`apple-touch-icon`, then the web app manifest, then
 `<link rel="icon">`, last `/favicon.ico`; the largest square image wins) and stores it as
-`public/icons/<link-id>.png`, scaled to 180x180 px. Links with `icon_source: manual` are never
+`public/link-icons/<link-id>.png`, scaled to 180x180 px. Links with `icon_source: manual` are never
 touched. If no usable icon is found (or the best one is smaller than 64x64 px), the link gets no
 icon file and the page falls back to its coloured initial tile.
 
 This script makes outbound HTTP requests to the linked websites and writes files under
-`public/icons/`. It is a local/CI tool only:
+`public/link-icons/`. It is a local/CI tool only:
 
 - **it must never run on the live server** — the deploy script never calls it, and it is not part
   of the deployed file set;
