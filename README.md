@@ -70,6 +70,15 @@ composer test
 PHPUnit tests for the data loader/validator and the icon selection logic. The icon selection tests
 run against local HTML/manifest fixtures only, no network access is used or required.
 
+## Deploy
+
+```sh
+./deploy.sh
+```
+
+Builds the production `vendor/` locally, uploads it and makes the server pull `main` over SSH.
+Details, setup and troubleshooting: [docs/deployment.md](docs/deployment.md).
+
 ## Contributing
 
 Want to suggest a link or your shop? See [CONTRIBUTING.md](CONTRIBUTING.md).

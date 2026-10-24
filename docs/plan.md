@@ -85,7 +85,7 @@ Task 1 reviews the exact English texts (labels, descriptions).
 - CI validation: required fields, `https://` only, room exists, no duplicate URLs, maximum text length,
   icon file exists (square, PNG/SVG/WebP, maximum size), no tracking parameters (`utm_*` and similar).
 - Why YAML: easiest to read and edit, supports comments. PHP reads YAML with the Composer package `symfony/yaml`,
-  so the deployment runs `composer install` (path in section 7).
+  so the deployment ships a `vendor/` built with `composer install` (section 7).
 - CI validates the YAML files against a JSON Schema (`data/schema/*.json`) and with custom rules in PHP.
 
 ### Icons
@@ -131,8 +131,9 @@ Task 1 reviews the exact English texts (labels, descriptions).
 ## 7. Hosting and deployment
 
 Plain PHP hosting, document root `public/`. `deploy.sh` (local, SSH) runs `_deploy.sh` on the server:
-branch and clean-tree check, `git pull --ff-only`, `composer install --no-dev -o`. Connection data and
-binary paths live in `.env.deploy` (untracked). Nobody deploys without an explicit go from the maintainer.
+branch and clean-tree check, `git pull --ff-only`. The server's SSH shell has no PHP 8.5, so `deploy.sh`
+builds `vendor/` locally (`composer install --no-dev -o`) and uploads it with rsync. Connection data lives
+in `.env.deploy` (untracked). Details in `docs/deployment.md`. Nobody deploys without an explicit go from the maintainer.
 
 ## 8. Contributions from outside
 
@@ -211,7 +212,7 @@ Planned later.
 - Spam or advertising pull requests: CI validation and review by the maintainer.
 - Dead links: weekly link check.
 - View Transitions API not in all browsers: CSS animation as fallback, same function.
-- The CLI PHP on the server can differ from the web PHP: binary paths are configurable in `.env.deploy`.
+- The CLI PHP on the server differs from the web PHP (8.3 vs 8.5): Composer runs locally, no PHP runs over SSH.
 - No full imprint: fine for a private fan site without ads and sales. If that changes, an imprint is needed (section 9).
 
 ## 12. Tasks
