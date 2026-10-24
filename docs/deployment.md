@@ -63,14 +63,16 @@ server: the next deploy aborts on a dirty working tree.
 ## First setup
 
 Started on 2026-10-23, guided by an agent with the skill `rig-plesk-deploy`.
+Finished on 2026-10-24; first deploy was `faf3182`.
 
-- [ ] Domain in Plesk and served
-- [ ] Document root, PHP version, SSL
-- [ ] Backup of `~/.ssh/config`, key created, `Host` block added
-- [ ] Deploy key on GitHub, read-only; `ssh -T` names the right repository
-- [ ] Scripts merged, checkout on the server, placeholders removed
-- [ ] First `./deploy.sh` ran through
-- [ ] Site loads; `.git/config` and `composer.json` answer 404
+- [x] Domain in Plesk and served
+- [x] Document root, PHP version, SSL
+- [x] Backup of `~/.ssh/config`, key created, `Host` block added
+- [x] Deploy key on GitHub, read-only; `ssh -T` names the right repository
+- [x] Scripts merged, checkout on the server, placeholders removed
+- [x] First `./deploy.sh` ran through
+- [x] Site loads; `.git/config`, `composer.json` and `vendor/autoload.php`
+  answer 404
 
 ## Specific to this project
 
