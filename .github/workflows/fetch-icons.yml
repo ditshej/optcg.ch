@@ -36,4 +36,4 @@ jobs:
           delete-branch: true
           title: "Update icons (bin/fetch-icons.php)"
           body-path: /tmp/icon-report.md
-          add-paths: public/icons/
+          add-paths: public/link-icons/
