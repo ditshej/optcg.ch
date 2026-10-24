@@ -22,13 +22,6 @@
 #     featured: false
 
 links:
-  - id: egman-events
-    title: Egman Events
-    url: "https://deckbuilder.egmanevents.com/optcg/tournaments"
-    description: "Tournament results, decklists and livestream archive for One Piece events."
-    language: en
-    icon_source: fetched
-
   - id: official-events
     title: Official Events
     url: "https://en.onepiece-cardgame.com/events/"
@@ -36,9 +29,16 @@ links:
     language: en
     icon_source: fetched
 
+  - id: egman-events
+    title: Egman Tournaments
+    url: "https://deckbuilder.egmanevents.com/optcg/tournaments"
+    description: "Tournament results, decklists and livestream archive for One Piece events."
+    language: en
+    icon_source: fetched
+
   - id: limitless-tcg
     title: Limitless TCG Results
-    url: "https://onepiece.limitlesstcg.com/"
+    url: "https://onepiece.limitlesstcg.com/tournaments"
     description: "Tournament results, standings and decklists from events around the world."
     language: en
     icon_source: fetched
