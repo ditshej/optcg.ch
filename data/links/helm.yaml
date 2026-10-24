@@ -21,4 +21,10 @@
 #     tags: [example]
 #     featured: false
 
-links: []
+links:
+  - id: don-swiss-optcg-discord
+    title: "DON!! Swiss OP TCG Community"
+    url: "https://discord.gg/h63SwNR4Fz"
+    description: "Discord server of the Swiss One Piece Card Game community."
+    language: de
+    icon_source: manual

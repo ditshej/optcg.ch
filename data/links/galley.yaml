@@ -21,4 +21,10 @@
 #     tags: [example]
 #     featured: false
 
-links: []
+links:
+  - id: twomoons
+    title: TwoMoons
+    url: "https://www.twomoons.ch/"
+    description: "Card games, events and more: a shop and bar in Stettbach ZH."
+    language: de
+    icon_source: fetched
