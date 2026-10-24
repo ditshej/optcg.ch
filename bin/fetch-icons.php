@@ -14,7 +14,7 @@ use Optcg\Icons\IconWriter;
 /**
  * Fetches a local icon for every link that does not have one yet (see
  * docs/plan.md section 5, Icons). Reads data/links/*.yaml, never writes to
- * them: it only adds files under public/icons/. Intended to run locally or
+ * them: it only adds files under public/link-icons/. Intended to run locally or
  * from the "Fetch icons" GitHub Actions workflow (see README.md), never on
  * the live server.
  */
@@ -80,7 +80,7 @@ foreach ($loader->discoverLinkFileRoomIds() as $roomId) {
             $id,
             $title,
             'fetched',
-            "{$selected->tier}, {$selected->width}x{$selected->height}px -> public/icons/{$iconFileName}",
+            "{$selected->tier}, {$selected->width}x{$selected->height}px -> public/link-icons/{$iconFileName}",
         ];
     }
 }

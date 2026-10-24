@@ -333,7 +333,7 @@ final class Validator
             $errors[] = new ValidationError(
                 $relFile,
                 $label,
-                "icon file 'public/icons/{$icon}' does not exist.",
+                "icon file 'public/link-icons/{$icon}' does not exist.",
                 'Add the icon file, run bin/fetch-icons.php, or remove the icon field to use the fallback tile.',
             );
 
@@ -346,7 +346,7 @@ final class Validator
             $errors[] = new ValidationError(
                 $relFile,
                 $label,
-                "icon file 'public/icons/{$icon}' is larger than {$maxKb} KB.",
+                "icon file 'public/link-icons/{$icon}' is larger than {$maxKb} KB.",
                 'Use a smaller or more compressed icon file.',
             );
         }
@@ -357,7 +357,7 @@ final class Validator
             $errors[] = new ValidationError(
                 $relFile,
                 $label,
-                "icon file 'public/icons/{$icon}' is not square ({$width}x{$height}px).",
+                "icon file 'public/link-icons/{$icon}' is not square ({$width}x{$height}px).",
                 'Use a square icon (equal width and height).',
             );
         }

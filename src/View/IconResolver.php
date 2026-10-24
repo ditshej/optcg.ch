@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Optcg\View;
 
 /**
- * Decides whether a link shows its real icon (public/icons/<file>) or the
+ * Decides whether a link shows its real icon (public/link-icons/<file>) or the
  * fallback tile (first letter on a coloured area, plan.md section 5).
  */
 final class IconResolver
 {
     /**
-     * @param \Closure(string): bool $fileExists checks a file name inside public/icons/
+     * @param \Closure(string): bool $fileExists checks a file name inside public/link-icons/
      */
     public function __construct(
         private readonly \Closure $fileExists,

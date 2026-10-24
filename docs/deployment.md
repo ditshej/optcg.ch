@@ -79,3 +79,6 @@ Started on 2026-10-23, guided by an agent with the skill `rig-plesk-deploy`.
   `_deploy.sh`.
 - `bin/fetch-icons.php` and `bin/check-links.php` never run on the server.
   They run locally or in GitHub Actions.
+- Link icons live in `public/link-icons/`, not `public/icons/`. Apache on
+  the server has a global `Alias /icons/` to its own icon set, so every URL
+  under `/icons/` misses the document root (`/icons/folder.gif` answers 200).
