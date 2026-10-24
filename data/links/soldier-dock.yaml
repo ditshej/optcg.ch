@@ -38,21 +38,7 @@ links:
 
   - id: opmetabuilder
     title: OP Meta Builder
-    url: "https://opmetabuilder.com/"
+    url: "https://opmetabuilder.com/deck-builder/builder"
     description: "Free deck builder combined with tournament meta analysis and tier tracking."
-    language: en
-    icon_source: fetched
-
-  - id: limitless-deckbuilder
-    title: Limitless Deck Builder
-    url: "https://my.limitlesstcg.com/builder?game=OP"
-    description: "Deck builder (beta) from Limitless TCG with card search, prices and playtesting."
-    language: en
-    icon_source: fetched
-
-  - id: oplaytcg-deckbuilder
-    title: OPlayTCG Deck Builder
-    url: "https://oplaytcg.com/en/deck-builder"
-    description: "Browse the full card library and build a 50-card deck around your leader, no install."
     language: en
     icon_source: fetched

@@ -43,30 +43,9 @@ links:
     language: en
     icon_source: fetched
 
-  - id: atrocious-tcg-yt
-    title: Atrocious TCG
-    url: "https://www.youtube.com/@atrocioustcg"
-    description: "Gameplay and deck videos for the One Piece Card Game."
-    language: en
-    icon_source: fetched
-
-  - id: marineford-tcg-yt
-    title: MarinefordTCG
-    url: "https://www.youtube.com/@Marinefordtcg"
-    description: "One Piece Card Game videos with gameplay and deck discussions."
-    language: en
-    icon_source: fetched
-
   - id: real-joshua-yt
     title: real_joshua
     url: "https://www.youtube.com/@real_joshuaTV"
     description: "Homebrew decks, educational content, news and meta deck profiles."
-    language: en
-    icon_source: fetched
-
-  - id: skepasg-yt
-    title: SkepasG
-    url: "https://www.youtube.com/@Skepasg"
-    description: "Competitive One Piece Card Game content from a two-time regional winner."
     language: en
     icon_source: fetched

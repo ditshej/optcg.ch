@@ -22,13 +22,6 @@
 #     featured: false
 
 links:
-  - id: official-rulebook
-    title: Official Rulebook
-    url: "https://en.onepiece-cardgame.com/rules/"
-    description: "Official full rulebook and rules reference for the One Piece Card Game, from Bandai."
-    language: en
-    icon_source: fetched
-
   - id: official-play-guide
     title: Official Play Guide
     url: "https://en.onepiece-cardgame.com/play-guide/"

@@ -29,10 +29,10 @@ links:
     language: en
     icon_source: fetched
 
-  - id: opmetagame
-    title: OP Metagame
-    url: "https://opmetagame.com/"
-    description: "Tournament-data meta tier list with win rates for the current format."
+  - id: optcg-ai
+    title: OPTCG AI
+    url: "https://optcgai.com/en/"
+    description: "Free browser simulator to practise against an AI opponent or friends, no install."
     language: en
     icon_source: fetched
 
@@ -40,12 +40,5 @@ links:
     title: OPlayTCG Simulator
     url: "https://oplaytcg.com/play"
     description: "Free browser simulator to test decks against real opponents, no install."
-    language: en
-    icon_source: fetched
-
-  - id: optcg-ai
-    title: OPTCG AI
-    url: "https://optcgai.com/en/"
-    description: "Free browser simulator to practise against an AI opponent or friends, no install."
     language: en
     icon_source: fetched

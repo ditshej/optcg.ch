@@ -21,13 +21,13 @@ rooms:
   - id: figurehead
     name: Figurehead
     topic: Official
-    description: "Official One Piece Card Game sources: the game website, Bandai TCG+ and official announcements."
+    description: "Official One Piece Card Game sources."
     order: 1
 
   - id: lawn-deck
     name: Lawn Deck
     topic: Events
-    description: "Tournaments and events: egmanevents, tournament calendars and local game nights."
+    description: "Tournaments and events records."
     order: 2
 
   - id: crows-nest
@@ -39,13 +39,13 @@ rooms:
   - id: library
     name: Library
     topic: Rules & Cards
-    description: "Rules, card databases and other reference sites for the One Piece Card Game."
+    description: "Rules, card databases and other reference sites."
     order: 4
 
   - id: usopp-factory
     name: Usopp Factory
     topic: Tools
-    description: "Community tools: prizing.optcg.ch, 3v3 and Two Moons."
+    description: "Unofficial community tools"
     order: 5
 
   - id: galley
@@ -57,7 +57,7 @@ rooms:
   - id: sick-bay
     name: Sick Bay
     topic: New Players
-    description: "First steps into the One Piece Card Game: official rules, a play guide and a guided tutorial."
+    description: "First steps into the One Piece Card Game."
     order: 7
 
   - id: soldier-dock
