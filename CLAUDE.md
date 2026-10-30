@@ -5,7 +5,8 @@
   links in a sheet/panel.
 - Plans: `docs/plan.md`, `docs/plan-sunny-callouts.md` (current layout, replaces plan.md §9).
   Rooms: `docs/rooms.md`. Deploy: `docs/deployment.md`.
-- PHP 8.5, Twig 3, YAML data + JSON Schema, vanilla JS/CSS. No build step, no Node, no database.
+- PHP 8.5, Twig 3, YAML data + JSON Schema, vanilla JS/CSS. No build step, no database; the
+  page itself needs no Node.
 
 ## Commands
 
@@ -13,7 +14,8 @@
 - `composer test` · `composer validate-data` · `composer lint:twig` (fix: `fix:twig`)
 - `composer fetch-icons`, `composer check-links`: outbound HTTP, local or CI only, never on the
   server.
-- No Playwright in the repo. Check UI changes at 360×640, 390×844, tablet and desktop.
+- Browser tests: not set up yet (planned: `@playwright/test`, dev only). Until then check UI
+  changes by hand at 360×640, 390×844, tablet and desktop.
 
 ## Rules
 
@@ -28,7 +30,7 @@
   `prefers-reduced-motion`. The page never scrolls; only the open link list does.
 - No tracking, cookies or external requests from the page; fonts and icons are local.
 - Tests never use the network (fakes and `tests/fixtures/`).
-- No official One Piece artwork. The tournament draw (lottery) tool never appears on the page.
+- No official One Piece artwork.
 - Branch `task/design-prototypes-a` (draft PR #20) is parked: do not merge or reuse it.
 - Public repo: no hosting details, internal tool/agent names, task numbers or secrets in files,
   commits or PRs. No screenshots in the repo (`docs/review/` is ignored).
