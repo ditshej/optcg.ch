@@ -1,30 +1,70 @@
+# rig-enforcement base 1 (CI template, adapted for a PHP project without Laravel)
 name: CI
 
 on:
-  push:
   pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
 
 jobs:
-  test:
+  quality:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
+      - uses: actions/checkout@v5
+      - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.5'
           extensions: curl, dom, gd
           coverage: none
-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
-
+          tools: composer:v2
+      - run: composer install --no-interaction --no-progress --prefer-dist
       - name: Validate composer.json
         run: composer validate --strict
-
       - name: Validate data files
-        run: php bin/validate-data.php
+        run: composer validate-data
+      - name: Lint Twig templates
+        run: composer lint:twig
+      - name: PHPUnit
+        run: composer test
 
-      - name: Run PHPUnit
-        run: vendor/bin/phpunit
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: curl, dom, gd
+          coverage: none
+          tools: composer:v2
+      - name: composer audit
+        run: composer audit --locked
+
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_ENABLE_COMMENTS: false
+
+  claude-md:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: CLAUDE.md length (warning only)
+        run: |
+          if [ -f CLAUDE.md ]; then
+            lines=$(wc -l < CLAUDE.md)
+          else
+            exit 0
+          fi
+          if [ "$lines" -gt 60 ]; then
+            echo "::warning file=CLAUDE.md::The project part of CLAUDE.md has $lines lines (guide: about 60)."
+          fi
