@@ -1,0 +1,198 @@
+@font-face { font-family: "IBM Plex Mono"; src: url("fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "IBM Plex Mono"; src: url("fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "IBM Plex Mono"; src: url("fonts/ibm-plex-mono-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Barlow Condensed"; src: url("fonts/barlow-condensed-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Barlow Condensed"; src: url("fonts/barlow-condensed-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Barlow Condensed"; src: url("fonts/barlow-condensed-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
+:root {
+    --bp: #10375a;
+    --bp-deep: #0b2a46;
+    --line: #dcecff;
+    --muted: #9cc2e8;
+    --faint: rgba(220, 236, 255, .14);
+    --mark: #ffd23f;
+    --ink: #0b2a46;
+    --cond: "Barlow Condensed", "Arial Narrow", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    --ease: cubic-bezier(.2, .8, .2, 1);
+}
+
+* { box-sizing: border-box; }
+html { background: var(--bp-deep); -webkit-text-size-adjust: 100%; }
+body {
+    margin: 0;
+    min-height: 100dvh;
+    color: var(--line);
+    font: 400 14px/1.5 var(--mono);
+    background-color: var(--bp);
+    background-image:
+        linear-gradient(var(--faint) 1px, transparent 1px),
+        linear-gradient(90deg, var(--faint) 1px, transparent 1px),
+        linear-gradient(rgba(220, 236, 255, .06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(220, 236, 255, .06) 1px, transparent 1px);
+    background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+}
+a { color: inherit; }
+button { font: inherit; }
+:focus-visible { outline: 3px solid var(--mark); outline-offset: 2px; }
+.zone:focus-visible, .callout:focus-visible { outline: none; }
+.defs { position: absolute; }
+
+/* ---------- first screen ---------- */
+.first { display: flex; flex-direction: column; }
+.top { display: flex; align-items: baseline; justify-content: space-between; gap: .75rem; padding: .55rem .9rem .5rem; border-bottom: 2px solid var(--line); background: var(--bp); }
+.top h1 { margin: 0; font: 700 1.45rem/1 var(--cond); text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; }
+.top p { margin: 0; font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); text-align: right; }
+
+.stage { display: none; position: relative; overflow: hidden; aspect-ratio: 984 / 470; }
+.sheetwrap { position: absolute; inset: 0; }
+.chart { position: absolute; inset: 0; width: 100%; height: 100%; display: block; color: var(--line); transform-origin: 0 0; transition: transform .65s var(--ease); will-change: transform; }
+
+/* ---------- drawing ---------- */
+.draw path, .draw circle, .draw polygon, .draw rect { fill: none; stroke: var(--line); stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
+.draw .thin { stroke: var(--muted); stroke-width: 1; }
+.draw .hull, .draw .mast { stroke-width: 2.6; }
+.draw .hull { fill: var(--bp); }
+.draw .sail { fill: var(--bp); }
+.draw .mane { fill: var(--bp); }
+.draw .rig { stroke: var(--muted); stroke-width: .9; }
+.draw .centre { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 14 3 2 3; }
+.draw .water { stroke: var(--muted); stroke-width: 1.1; stroke-dasharray: 4 3; }
+.draw .wave { stroke: var(--muted); stroke-width: 1.1; }
+.draw .ghost { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 5 4; opacity: .7; }
+.draw .wheel * { stroke-width: 1.4; }
+.draw .grass { fill: url(#grass); stroke: none; color: var(--muted); }
+.draw .dim { stroke: var(--muted); stroke-width: 1; }
+.draw text { fill: var(--muted); stroke: none; font: 500 11px var(--mono); letter-spacing: .1em; }
+
+/* ---------- rooms with their labels ---------- */
+.zone { cursor: pointer; -webkit-tap-highlight-color: transparent; animation: appear .6s var(--ease) backwards; }
+.zone .fill { fill: rgba(11, 42, 70, .3); }
+.zone .hatch { color: var(--mark); opacity: 0; transition: opacity .2s; pointer-events: none; }
+.zone .edge { fill: none; stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 7 4; transition: stroke .2s; }
+.zone.zero .edge { stroke-dasharray: 3 4; }
+.zone text { pointer-events: none; paint-order: stroke; stroke: var(--bp-deep); stroke-width: 5px; stroke-linejoin: round; }
+.zone .zt { fill: var(--line); font-family: var(--cond); font-weight: 700; letter-spacing: .05em; }
+.zone .zc { fill: var(--muted); font: 500 11.5px var(--mono); letter-spacing: .06em; }
+.zone:nth-of-type(2n) { animation-delay: .1s; }
+.zone.hl .hatch, .zone.on .hatch, .zone:active .hatch { opacity: .26; }
+.zone.hl .edge, .zone.on .edge, .zone:active .edge, .zone:focus-visible .edge { stroke: var(--mark); stroke-width: 3; stroke-dasharray: none; }
+.zone:focus-visible .edge { stroke-dasharray: 9 5; }
+.zone.hl .zt, .zone.on .zt, .zone:focus-visible .zt { fill: var(--mark); }
+.zone.hl .zc, .zone.on .zc, .zone:focus-visible .zc { fill: var(--line); }
+.zoomed .zone:not(.on) { opacity: .3; transition: opacity .3s; }
+@keyframes appear { from { opacity: 0; } }
+
+/* ---------- hint to turn the phone (portrait phones only) ---------- */
+.rotate { display: flex; align-items: center; gap: 1rem; margin: .8rem .75rem 0; padding: .8rem 1rem; background: var(--bp-deep); border: 1.5px solid var(--muted); border-left: 4px solid var(--mark); }
+.rotate p { margin: 0; font-size: .95rem; line-height: 1.3; }
+.rotate b { font: 700 1.4rem/1.1 var(--cond); text-transform: uppercase; letter-spacing: .06em; display: block; }
+.rotate span { display: block; margin-top: .2rem; font-size: .72rem; color: var(--muted); }
+.phone { flex: none; }
+.phone rect, .phone path { fill: none; stroke: var(--line); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.phone .arc { stroke: var(--mark); }
+.phone .turn { transform-origin: 32px 29px; animation: turn 4.5s var(--ease) infinite; }
+@keyframes turn { 0%, 18% { transform: rotate(0); } 48%, 82% { transform: rotate(-90deg); } 100% { transform: rotate(0); } }
+
+/* ---------- topics list (portrait): the full alternative to the ship ---------- */
+.themes ol { list-style: none; margin: 0; padding: .8rem .75rem 1rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; max-width: 860px; margin: 0 auto; }
+.themes li { display: flex; }
+.themes a {
+    flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: .6rem; min-height: 60px; padding: .4rem .8rem; text-decoration: none;
+    background: var(--bp-deep); border: 1.5px solid var(--line);
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+.themes a.zero { border-style: dashed; }
+.t-txt { display: grid; min-width: 0; line-height: 1.1; }
+.t-txt b { font: 700 1.5rem/1.05 var(--cond); text-transform: uppercase; letter-spacing: .04em; }
+.t-txt i { font-style: normal; font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.t-cnt { min-width: 2rem; text-align: center; padding: .05rem .4rem; border: 1px solid var(--muted); color: var(--muted); font-size: .9rem; }
+.themes a:active, .themes a.hl { background: var(--mark); color: var(--ink); border-color: var(--mark); }
+.themes a:active i, .themes a.hl i, .themes a:active .t-cnt, .themes a.hl .t-cnt { color: var(--ink); border-color: var(--ink); }
+.themes a:focus-visible { outline-offset: 0; }
+
+/* ---------- link rows (sheet, parts list) ---------- */
+.links { list-style: none; margin: 0; padding: 0; }
+.links li a { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; align-items: center; gap: .75rem; min-height: 64px; padding: .5rem .75rem; text-decoration: none; border-bottom: 1px solid var(--faint); }
+.links li a:active, .links li a:focus-visible { background: var(--mark); color: var(--ink); outline-color: var(--line); outline-offset: -3px; }
+.links img, .fb { width: 44px; height: 44px; background: #fff; object-fit: cover; border: 1px solid var(--line); }
+.fb { display: grid; place-items: center; font: 700 1.5rem var(--cond); background: var(--bp-deep); color: var(--line); }
+.l-txt { display: grid; min-width: 0; line-height: 1.25; }
+.l-txt b { font: 600 1.25rem/1.1 var(--cond); text-transform: uppercase; letter-spacing: .04em; }
+.l-txt span { font-size: .74rem; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.l-lang { font-size: .68rem; letter-spacing: .1em; color: var(--muted); border: 1px solid currentColor; padding: 0 .3rem; }
+a:active .l-txt span, a:active .l-lang, a:focus-visible .l-txt span, a:focus-visible .l-lang { color: var(--ink); }
+.empty { margin: .75rem; padding: .9rem; border: 1px dashed var(--muted); color: var(--muted); font-size: .8rem; }
+
+/* ---------- all topics (fallback list) ---------- */
+.all { border-top: 2px solid var(--line); background: var(--bp); padding-bottom: 2rem; }
+.all > h2 { margin: 0; padding: .55rem .9rem; font: 700 1.05rem var(--cond); text-transform: uppercase; letter-spacing: .14em; border-bottom: 2px solid var(--line); }
+.all details { max-width: 860px; margin: 0 auto; }
+.all summary { list-style: none; display: grid; grid-template-columns: 2rem 1fr auto; grid-template-areas: "no name cnt" "no sub cnt"; column-gap: .5rem; align-items: center; min-height: 56px; padding: .4rem .9rem; cursor: pointer; border-bottom: 1px solid var(--faint); }
+.all summary::-webkit-details-marker { display: none; }
+.all details[open] summary { background: var(--bp-deep); border-bottom-color: var(--line); }
+.all summary:focus-visible { outline-offset: -3px; }
+.p-no { grid-area: no; font-size: .8rem; color: var(--muted); }
+.p-name { grid-area: name; font: 600 1.3rem/1.1 var(--cond); text-transform: uppercase; letter-spacing: .05em; }
+.p-sub { grid-area: sub; font-size: .72rem; color: var(--muted); }
+.p-cnt { grid-area: cnt; border: 1px solid currentColor; min-width: 2rem; text-align: center; padding: .05rem .4rem; font-size: .9rem; }
+.note { margin: 1.25rem .9rem 0; font-size: .68rem; color: var(--muted); text-align: center; }
+
+/* ---------- bottom sheet (portrait) / side panel (landscape) ---------- */
+dialog {
+    position: fixed; inset: 0; margin: auto auto 0; padding: 0; border: 0; border-top: 2px solid var(--line);
+    width: min(100%, 720px); max-width: none; height: 62dvh; max-height: none; overflow: hidden;
+    color: var(--line); background-color: var(--bp);
+    background-image: linear-gradient(var(--faint) 1px, transparent 1px), linear-gradient(90deg, var(--faint) 1px, transparent 1px);
+    background-size: 80px 80px;
+    transform: translateY(100%); transition: transform .4s var(--ease);
+    flex-direction: column;
+}
+dialog[open] { display: flex; }
+dialog.in { transform: none; }
+dialog.drag { transition: none; }
+dialog::backdrop { background: rgba(6, 22, 38, .28); }
+.grab { touch-action: none; background: var(--bp); border-bottom: 2px solid var(--line); cursor: grab; flex: none; }
+.bar { display: block; width: 44px; height: 4px; margin: 8px auto 0; background: var(--muted); }
+.grab header { display: flex; align-items: flex-start; justify-content: space-between; gap: .75rem; padding: .35rem .9rem .65rem; }
+.grab .k { margin: 0; font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.grab h2 { margin: 0; font: 700 2.2rem/1 var(--cond); text-transform: uppercase; }
+.grab h2:focus { outline: none; }
+.close { flex: none; min-width: 44px; min-height: 44px; padding: 0 .9rem; color: var(--line); background: transparent; border: 1.5px solid var(--line); text-transform: uppercase; letter-spacing: .1em; font-size: .72rem; cursor: pointer; }
+.close:active { background: var(--line); color: var(--ink); }
+.body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding-bottom: env(safe-area-inset-bottom); }
+.body .desc { margin: 0; padding: .6rem .9rem; font-size: .76rem; color: var(--muted); border-bottom: 1px solid var(--faint); }
+dialog.in .body li { animation: rise .4s var(--ease) backwards; animation-delay: calc(var(--n, 0) * 40ms + 150ms); }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+
+@media (min-width: 600px) {
+    .themes ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- the ship view: any landscape screen, and anything at least 700 px wide ---------- */
+@media (min-width: 700px), (min-aspect-ratio: 1/1) {
+    .stage { display: block; }
+    .rotate { display: none; }
+}
+/* Landscape: the ship fills the screen and the panel slides in from the right. */
+@media (min-aspect-ratio: 1/1) {
+    .first { height: 100dvh; min-height: 330px; }
+    .stage { flex: 1; min-height: 0; aspect-ratio: auto; }
+    .themes { display: none; }
+    .top { padding: .35rem .9rem .3rem; }
+    dialog {
+        margin: 0 0 0 auto; inset: 0 0 0 auto; width: min(440px, 42vw); height: 100dvh; border-top: 0; border-left: 2px solid var(--line);
+        transform: translateX(100%);
+    }
+    .bar { display: none; }
+    .grab header { padding-top: .6rem; }
+}
+@media (max-height: 500px) {
+    .top h1 { font-size: 1.15rem; }
+    .grab h2 { font-size: 1.7rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+}
