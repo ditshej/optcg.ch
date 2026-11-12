@@ -11,3 +11,7 @@
 # authentication is by SSH key — but it is machine-local. The tracked
 # template is .env.deploy.example.
 .env.deploy
+
+# Personal Claude Code settings and agent worktrees.
+/.claude/settings.local.json
+/.claude/worktrees/
