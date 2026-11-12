@@ -34,6 +34,12 @@
         }
     },
     "scripts": {
+        "post-install-cmd": [
+            "@php -r \"if (file_exists('.git')) { exec('git config core.hooksPath .githooks/base'); }\""
+        ],
+        "post-update-cmd": [
+            "@php -r \"if (file_exists('.git')) { exec('git config core.hooksPath .githooks/base'); }\""
+        ],
         "validate-data": "php bin/validate-data.php",
         "check-links": "php bin/check-links.php",
         "fetch-icons": "php bin/fetch-icons.php",

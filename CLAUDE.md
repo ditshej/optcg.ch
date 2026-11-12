@@ -36,3 +36,8 @@
   commits or PRs. No screenshots in the repo (`docs/review/` is ignored).
 - Deploy only on an explicit go from the owner (`./deploy.sh`, see `docs/deployment.md`). Never
   edit files on the server.
+
+## Enforcement
+
+- Hooks and CI come from the rig-enforcement skill (base version 4). Do not edit `.claude/settings.json`, `.claude/hooks/base/`, `.githooks/base/` or `docs/ai-review/base.md`; project rules go into the `project/` folders and `docs/ai-review/project.md`.
+- Releases are tags `vX.Y.Z` (semantic versioning). Before tagging, run the AI review from the rig-enforcement skill; the hook blocks the tag without `Status: pass`.
